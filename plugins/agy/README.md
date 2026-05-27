@@ -43,10 +43,12 @@ After installing the plugin in Codex, start a new Codex thread and use:
 ```text
 $agy setup
 $agy task explain how authentication works in this repo
-$agy rescue --background Investigate the flaky portfolio test
-$agy rescue --continue Apply the top fix
-$agy rescue --fresh Start a new investigation of the DCA state bug
+$agy task --background Investigate the flaky portfolio test
+$agy task --continue Apply the top fix
+$agy task --fresh Start a new investigation of the DCA state bug
 ```
+
+`$agy task` is the supported command for one-shot, background, fresh, and continued runs. Older examples may mention `$agy rescue`; that subcommand is not implemented by the current companion script.
 
 ## Contents
 
@@ -57,6 +59,14 @@ $agy rescue --fresh Start a new investigation of the DCA state bug
 - `scripts/agy-companion.mjs` - local wrapper around the `agy` CLI
 
 Codex does not expose a documented custom slash-command API equivalent to Claude Code `commands/` and `agents/`. `$agy` is the portable skill command form.
+
+The helper script itself exposes:
+
+```text
+node scripts/agy-companion.mjs setup [--json]
+node scripts/agy-companion.mjs task [--background] [--continue|--fresh] [--model <model>] [prompt]
+node scripts/agy-companion.mjs task-resume-candidate [--json]
+```
 
 ## Runtime State
 

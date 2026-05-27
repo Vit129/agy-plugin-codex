@@ -54,10 +54,12 @@ After installing the plugin in Codex, start a new Codex thread and use:
 ```text
 $agy setup
 $agy task explain how authentication works in this repo
-$agy rescue --background Investigate the flaky portfolio test
-$agy rescue --continue Apply the top fix
-$agy rescue --fresh Start a new investigation of the DCA state bug
+$agy task --background Investigate the flaky portfolio test
+$agy task --continue Apply the top fix
+$agy task --fresh Start a new investigation of the DCA state bug
 ```
+
+`$agy task` is the supported command for one-shot, background, fresh, and continued runs. Older examples may mention `$agy rescue`; that subcommand is not implemented by the current companion script.
 
 ## Contents
 
@@ -69,7 +71,15 @@ $agy rescue --fresh Start a new investigation of the DCA state bug
 - `plugins/agy/skills/gemini-3-prompting/SKILL.md` - prompt-shaping guidance
 - `plugins/agy/scripts/agy-companion.mjs` - local wrapper around the `agy` CLI
 
-Codex does not use Claude Code `commands/` or `agents/` directories. The equivalent behavior lives in `skills/agy/SKILL.md`, which routes setup, direct delegation, rescue, background, fresh, and continue workflows through the same companion script.
+Codex does not use Claude Code `commands/` or `agents/` directories. The equivalent behavior lives in `skills/agy/SKILL.md`, which routes setup, direct delegation, background, fresh, and continue workflows through the same companion script.
+
+The helper script itself exposes:
+
+```text
+node scripts/agy-companion.mjs setup [--json]
+node scripts/agy-companion.mjs task [--background] [--continue|--fresh] [--model <model>] [prompt]
+node scripts/agy-companion.mjs task-resume-candidate [--json]
+```
 
 ## Runtime State
 

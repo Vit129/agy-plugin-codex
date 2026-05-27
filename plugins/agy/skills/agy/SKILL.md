@@ -1,6 +1,6 @@
 ---
 name: agy
-description: Use when the user invokes $agy, asks to run Antigravity, agy, Gemini CLI successor, agy setup, agy rescue, delegate work to agy, continue an agy task, or get a second coding/debugging pass through the local agy CLI.
+description: Use when the user invokes $agy, asks to run Antigravity, agy, Gemini CLI successor, agy setup, delegate work to agy, continue an agy task, or get a second coding/debugging pass through the local agy CLI.
 ---
 
 # Agy for Codex
@@ -13,9 +13,7 @@ Supported portable forms:
 
 ```text
 $agy setup
-$agy task <prompt>
-$agy rescue [--background] [--continue|--fresh] [--model <model>] <prompt>
-$agy status
+$agy task [--background] [--continue|--fresh] [--model <model>] <prompt>
 ```
 
 Slash-style aliases such as `/agy setup` may work in some Codex builds, but `$agy` is the stable form.
@@ -55,9 +53,9 @@ node "<plugin-root>/scripts/agy-companion.mjs" task "<user task>"
 
 Return agy's output verbatim unless the user asked Codex to summarize or integrate it.
 
-## Rescue Workflow
+## Background and Resume Workflow
 
-Use this for `$agy rescue ...`, when Codex is stuck, or when a second independent implementation/debugging pass is useful.
+Use this for `$agy task ...`, when Codex is stuck, or when a second independent implementation/debugging pass is useful.
 
 Supported flags:
 
@@ -66,7 +64,7 @@ Supported flags:
 - `--fresh`: start without resume
 - `--model <model>`: pass a specific model to agy
 
-Before a rescue task with neither `--continue` nor `--fresh`, check:
+Before a follow-up task with neither `--continue` nor `--fresh`, check:
 
 ```bash
 node "<plugin-root>/scripts/agy-companion.mjs" task-resume-candidate --json

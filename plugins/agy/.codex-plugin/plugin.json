@@ -6,8 +6,8 @@
     "name": "Vit129",
     "url": "https://github.com/Vit129"
   },
-  "homepage": "https://github.com/Vit129/agy-plugin-cc",
-  "repository": "https://github.com/Vit129/agy-plugin-cc",
+  "homepage": "https://github.com/Vit129/agy-plugin-codex",
+  "repository": "https://github.com/Vit129/agy-plugin-codex",
   "license": "MIT",
   "keywords": [
     "agy",
@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "Agy",
     "shortDescription": "Ask local Antigravity from Codex.",
-    "longDescription": "Use local Antigravity from Codex for setup checks, one-shot tasks, background rescue work, and continued debugging or implementation passes while Codex stays in charge.",
+    "longDescription": "Use local Antigravity from Codex for setup checks, one-shot tasks, background work, and continued debugging or implementation passes while Codex stays in charge.",
     "developerName": "Vit129",
     "category": "Coding",
     "capabilities": [
@@ -30,7 +30,7 @@
     "defaultPrompt": [
       "$agy setup",
       "$agy task explain this repo",
-      "$agy rescue --background investigate this issue"
+      "$agy task --background investigate this issue"
     ],
     "brandColor": "#1A73E8"
   }
