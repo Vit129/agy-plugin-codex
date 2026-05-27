@@ -1,0 +1,37 @@
+{
+  "name": "agy",
+  "version": "1.0.0",
+  "description": "Delegate coding tasks to Antigravity (agy) CLI from Codex CLI with setup checks, one-shot tasks, resume, and background execution.",
+  "author": {
+    "name": "Vit129",
+    "url": "https://github.com/Vit129"
+  },
+  "homepage": "https://github.com/Vit129/agy-plugin-cc",
+  "repository": "https://github.com/Vit129/agy-plugin-cc",
+  "license": "MIT",
+  "keywords": [
+    "agy",
+    "antigravity",
+    "gemini",
+    "codex",
+    "coding-agent"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Agy",
+    "shortDescription": "Ask local Antigravity from Codex.",
+    "longDescription": "Use local Antigravity from Codex for setup checks, one-shot tasks, background rescue work, and continued debugging or implementation passes while Codex stays in charge.",
+    "developerName": "Vit129",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "$agy setup",
+      "$agy task explain this repo",
+      "$agy rescue --background investigate this issue"
+    ],
+    "brandColor": "#1A73E8"
+  }
+}
