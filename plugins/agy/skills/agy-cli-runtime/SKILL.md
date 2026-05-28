@@ -16,9 +16,15 @@ node "<plugin-root>/scripts/agy-companion.mjs" task "<raw task>"
 
 Subcommands:
 
-- `setup [--json]`
-- `task [--background] [--continue|--fresh] [--model <model>] [prompt]`
+- `setup [--enable-review-gate|--disable-review-gate] [--json]`
+- `task [--background] [--sandbox] [--continue|--resume|--fresh] [prompt]`
+- `task-worker --job-id <id>`
 - `task-resume-candidate [--json]`
+- `review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>]`
+- `adversarial-review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [focus]`
+- `status [job-id] [--wait] [--all] [--json]`
+- `result [job-id] [--json]`
+- `cancel [job-id] [--json]`
 
 Rules:
 

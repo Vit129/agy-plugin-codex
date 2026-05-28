@@ -12,8 +12,14 @@ This skill is the Codex-native `$agy` command surface. It delegates bounded work
 Supported portable forms:
 
 ```text
-$agy setup
-$agy task [--background] [--continue|--fresh] [--model <model>] <prompt>
+$agy setup [--enable-review-gate|--disable-review-gate]
+$agy task [--background] [--sandbox] [--continue|--resume|--fresh] <prompt>
+$agy rescue [--background|--wait] [--resume|--fresh] [--sandbox] <prompt>
+$agy review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>]
+$agy adversarial-review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [focus]
+$agy status [job-id] [--wait] [--all]
+$agy result [job-id]
+$agy cancel [job-id]
 ```
 
 Slash-style aliases such as `/agy setup` may work in some Codex builds, but `$agy` is the stable form.
@@ -60,10 +66,8 @@ Use this for `$agy task ...`, when Codex is stuck, or when a second independent 
 Supported flags:
 
 - `--background`: start agy and return the log path immediately
-- `--continue`: resume the previous agy conversation
+- `--continue` / `--resume`: resume the most recent agy conversation
 - `--fresh`: start without resume
-- `--model <model>`: pass a specific model to agy
-
 Before a follow-up task with neither `--continue` nor `--fresh`, check:
 
 ```bash
