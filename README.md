@@ -86,6 +86,28 @@ node scripts/agy-companion.mjs result [job-id] [--json]
 node scripts/agy-companion.mjs cancel [job-id] [--json]
 ```
 
+## Changelog
+
+### v1.1.0 (2026-05-28)
+
+- **`$agy rescue`** — delegate investigation/fix work; flags: `--background`, `--resume`, `--fresh`, `--sandbox`, `--wait`
+- **`$agy review`** — code review via agy; flags: `--background`, `--wait`, `--scope auto|working-tree|branch`, `--base <ref>`
+- **`$agy adversarial-review [focus]`** — adversarial review mode
+- **`$agy status [job-id]`** — list active/recent jobs; `--wait`, `--all`
+- **`$agy result [job-id]`** — retrieve stored output for finished job
+- **`$agy cancel [job-id]`** — cancel a running background job
+- **SessionStart / Stop hooks** — session lifecycle management + stop-time review gate
+- **Job tracking** — persistent job state (queued / running / completed / failed / cancelled)
+- **Modular library** — `agy.mjs`, `args.mjs`, `fs.mjs`, `git.mjs`, `job-control.mjs`, `process.mjs`, `render.mjs`, `state.mjs`, `tracked-jobs.mjs`, `workspace.mjs`
+- **Review prompts** — `review.md`, `adversarial-review.md`, `stop-review-gate.md`
+- Full feature parity with `agy-plugin-cc` v1.1.0
+
+### v1.0.0
+
+- Initial release: `$agy setup`, `$agy task` — basic task delegation and resume
+
+---
+
 ## Runtime State
 
 The helper stores per-workspace job state, result payloads, and background logs under `CODEX_PLUGIN_DATA/state/` when Codex provides that directory. If `CODEX_PLUGIN_DATA` is not set, it falls back to:
