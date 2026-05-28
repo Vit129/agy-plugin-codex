@@ -48,7 +48,7 @@ $agy task --continue Apply the top fix
 $agy task --fresh Start a new investigation of the DCA state bug
 ```
 
-`$agy task` is the supported command for one-shot, background, fresh, and continued runs. Older examples may mention `$agy rescue`; that subcommand is not implemented by the current companion script.
+`$agy task`, `$agy rescue`, `$agy review`, `$agy adversarial-review`, `$agy status`, `$agy result`, and `$agy cancel` are implemented by the companion script.
 
 ## Contents
 
@@ -63,23 +63,20 @@ Codex does not expose a documented custom slash-command API equivalent to Claude
 The helper script itself exposes:
 
 ```text
-node scripts/agy-companion.mjs setup [--json]
-node scripts/agy-companion.mjs task [--background] [--continue|--fresh] [--model <model>] [prompt]
+node scripts/agy-companion.mjs setup [--enable-review-gate|--disable-review-gate] [--json]
+node scripts/agy-companion.mjs task [--background] [--sandbox] [--continue|--resume|--fresh] [prompt]
 node scripts/agy-companion.mjs task-resume-candidate [--json]
+node scripts/agy-companion.mjs review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>]
+node scripts/agy-companion.mjs adversarial-review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [focus]
+node scripts/agy-companion.mjs status [job-id] [--wait] [--all] [--json]
+node scripts/agy-companion.mjs result [job-id] [--json]
+node scripts/agy-companion.mjs cancel [job-id] [--json]
 ```
 
 ## Runtime State
 
-The helper stores resumable task metadata and background logs under:
-
-```text
-~/.codex/agy-companion/
-```
-
-If that directory is not writable in the current sandbox, the helper falls back to:
+The helper stores per-workspace job state, result payloads, and background logs under `CODEX_PLUGIN_DATA/state/` when Codex provides that directory. If `CODEX_PLUGIN_DATA` is not set, it falls back to:
 
 ```text
 /tmp/agy-companion/
 ```
-
-The helper also passes an explicit `--log-file` path to `agy` so sandboxed runs do not fail just because the default Antigravity log directory is unavailable.
