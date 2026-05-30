@@ -1,0 +1,21 @@
+{
+  "name": "@vit129/agy-plugin-codex",
+  "version": "1.2.0",
+  "description": "Codex plugin installer and updater for the Antigravity agy companion.",
+  "type": "module",
+  "bin": {
+    "agy-plugin-codex": "scripts/install.mjs"
+  },
+  "files": [
+    ".agents/plugins/marketplace.json",
+    "plugins/agy",
+    "scripts/install.mjs"
+  ],
+  "scripts": {
+    "check": "node --check scripts/install.mjs && node --check plugins/agy/scripts/agy-companion.mjs && node --check plugins/agy/scripts/lib/update-check.mjs"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "license": "MIT"
+}
