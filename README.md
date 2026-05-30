@@ -1,8 +1,8 @@
 # agy-plugin-codex
 
-A Codex plugin that integrates the Antigravity (`agy`) CLI into Codex CLI.
+A Codex plugin that integrates **Google's Antigravity (agy) CLI** and **Antigravity IDE** developer tools into Codex CLI.
 
-This is the Codex-native counterpart to `agy-plugin-cc`. It follows the same Codex marketplace pattern used by reverse Claude/Codex plugins:
+This is the Codex-native counterpart (often referred to as **Google Agy Codex Plugin** or **Antigravity Codex Plugin**) to `agy-plugin-cc`. It follows the same Codex marketplace pattern used by reverse Claude/Codex plugins, optimizing workflows for **Google Antigravity** systems:
 
 - repo-local marketplace metadata at `.agents/plugins/marketplace.json`
 - nested installable plugin at `plugins/agy`
