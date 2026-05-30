@@ -49,6 +49,20 @@ codex plugin marketplace add ./
 
 Then install `Agy` from the `Agy Plugin Codex` marketplace in Codex.
 
+Or install/update through npm:
+
+```bash
+npx -y @vit129/agy-plugin-codex@latest install
+```
+
+Opt in to automatic npm updates:
+
+```bash
+npx -y @vit129/agy-plugin-codex@latest install --auto-update
+```
+
+With auto-update enabled, `$agy setup` checks npm at most once every 24 hours. If a newer version exists, it reinstalls the Codex plugin cache and asks you to start a new Codex session. Without auto-update, `$agy setup` only prints the update command.
+
 After installing the plugin in Codex, start a new Codex thread and use:
 
 ```text
@@ -87,6 +101,13 @@ node scripts/agy-companion.mjs cancel [job-id] [--json]
 ```
 
 ## Changelog
+
+### v1.2.0 (2026-05-30)
+
+- Added npm package metadata and `agy-plugin-codex` installer CLI.
+- Added `npx -y @vit129/agy-plugin-codex@latest install` for repeatable install/update.
+- Added opt-in auto-update with `install --auto-update` or `$agy setup --enable-auto-update`.
+- `$agy setup` now checks npm for newer plugin versions and notifies by default.
 
 ### v1.1.0 (2026-05-28)
 
