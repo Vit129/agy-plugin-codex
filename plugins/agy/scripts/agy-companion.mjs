@@ -191,12 +191,9 @@ async function buildSetupReport(cwd, actionsTaken = []) {
       `Agy plugin update available: ${update.currentVersion} -> ${update.latestVersion}. Run: npx -y @vit129/agy-plugin-codex@latest install`
     );
   }
-  if (update.autoUpdateAttempted && update.autoUpdateSucceeded) {
-    nextSteps.push("Agy plugin updated. Start a new Codex session to load the update.");
-  }
-  if (update.autoUpdateAttempted && !update.autoUpdateSucceeded) {
+  if (update.autoUpdateStarted) {
     nextSteps.push(
-      `Agy plugin auto-update failed. Run manually: npx -y @vit129/agy-plugin-codex@latest install`
+      `Agy plugin update installing in background (${update.currentVersion} -> ${update.latestVersion}). Start a new Codex session after it finishes, or check ${update.installLogPath}.`
     );
   }
 
