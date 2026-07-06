@@ -136,3 +136,9 @@ The helper stores per-workspace job state, result payloads, and background logs 
 ```text
 /tmp/agy-companion/
 ```
+
+## License
+
+MIT — see [LICENSE](./LICENSE). This is an original, independently authored
+project (not a fork). You're welcome to fork it, modify it, and redistribute
+it, provided the copyright notice in `LICENSE` is preserved.
