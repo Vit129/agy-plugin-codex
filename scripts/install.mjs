@@ -49,7 +49,73 @@ function tomlString(value) {
   return JSON.stringify(String(value));
 }
 
-function upsertCodexConfig() {
+function skillConfigBlock(skillPath) {
+  return `[[skills.config]]\npath = ${tomlString(skillPath)}\nenabled = true\n`;
+}
+
+function pluginSkillPaths(version) {
+  const skillRoot = path.join(
+    os.homedir(),
+    ".codex",
+    "plugins",
+    "cache",
+    MARKETPLACE_NAME,
+    PLUGIN_NAME,
+    version,
+    "skills"
+  );
+
+  return [
+    path.join(skillRoot, "agy", "SKILL.md"),
+    path.join(skillRoot, "agy-cli-runtime", "SKILL.md"),
+    path.join(skillRoot, "gemini-3-prompting", "SKILL.md")
+  ];
+}
+
+function upsertPluginSkillConfig(text, version) {
+  const expectedPaths = pluginSkillPaths(version);
+  const expected = new Set(expectedPaths);
+  const pluginSkillPathPattern = new RegExp(
+    `^path = "${path
+      .join(
+        os.homedir(),
+        ".codex",
+        "plugins",
+        "cache",
+        MARKETPLACE_NAME,
+        PLUGIN_NAME
+      )
+      .replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}/[^"]+/skills/[^"]+/SKILL\\.md"$`,
+    "m"
+  );
+
+  const seen = new Set();
+  let next = text.replace(
+    /\n*\[\[skills\.config\]\]\npath = "([^"]+)"\nenabled = (?:true|false)\n?/g,
+    (block, skillPath) => {
+      if (!pluginSkillPathPattern.test(`path = ${tomlString(skillPath)}`)) {
+        return block;
+      }
+
+      if (!expected.has(skillPath)) {
+        return "";
+      }
+
+      seen.add(skillPath);
+      return `\n\n${skillConfigBlock(skillPath)}`;
+    }
+  );
+
+  for (const skillPath of expectedPaths) {
+    if (!seen.has(skillPath)) {
+      next = `${next.trimEnd()}\n\n${skillConfigBlock(skillPath)}`;
+    }
+  }
+
+  return next;
+}
+
+function upsertCodexConfig(version) {
   const configPath = path.join(os.homedir(), ".codex", "config.toml");
   ensureDir(path.dirname(configPath));
   let text = fs.existsSync(configPath) ? fs.readFileSync(configPath, "utf8") : "";
@@ -84,6 +150,8 @@ function upsertCodexConfig() {
     );
   }
 
+  text = upsertPluginSkillConfig(text, version);
+
   fs.writeFileSync(configPath, `${text.trimEnd()}\n`, "utf8");
   return configPath;
 }
@@ -116,7 +184,7 @@ function install(args) {
   const flags = parseFlags(args);
   const manifest = pluginManifest();
   const target = copyPlugin(manifest.version);
-  const configPath = upsertCodexConfig();
+  const configPath = upsertCodexConfig(manifest.version);
   const globalConfigPath = flags.has("--auto-update") ? writeGlobalAutoUpdate(true) : null;
 
   console.log(`Installed agy@agy-plugin-codex v${manifest.version}.`);
