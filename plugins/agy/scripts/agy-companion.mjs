@@ -11,7 +11,8 @@ import { parseArgs, splitRawArgumentString } from "./lib/args.mjs";
 import { getAgyAuthStatus, getAgyAvailability, runAgyModels, runAgyTask, runAgyTaskSync } from "./lib/agy.mjs";
 import { readStdinIfPiped } from "./lib/fs.mjs";
 import { ensureGitRepository, resolveReviewTarget } from "./lib/git.mjs";
-import { binaryAvailable, terminateProcessTree } from "./lib/process.mjs";
+import { binaryAvailable, runCommand, terminateProcessTree } from "./lib/process.mjs";
+import { checkGitCloneUpdate, dismissUpdate } from "./lib/git-update-check.mjs";
 import {
   generateJobId,
   getConfig,
@@ -65,6 +66,7 @@ function printUsage() {
       "  node scripts/agy-companion.mjs setup [--enable-review-gate|--disable-review-gate] [--enable-auto-update|--disable-auto-update] [--json]",
       "  node scripts/agy-companion.mjs models [--json]",
       "  node scripts/agy-companion.mjs doctor [--json]",
+      "  node scripts/agy-companion.mjs update [--pull|--dismiss] [--json]",
       "  node scripts/agy-companion.mjs review [--wait|--background] [--base <ref>] [--scope <auto|working-tree|branch>] [--model <name>] [--add-dir <path>] [--log-file <path>] [--print-timeout <duration>]",
       "  node scripts/agy-companion.mjs adversarial-review [--wait|--background] [--base <ref>] [--scope <auto|working-tree|branch>] [--model <name>] [--add-dir <path>] [--log-file <path>] [--print-timeout <duration>] [focus text]",
       "  node scripts/agy-companion.mjs task [--background] [--sandbox] [--continue|--resume-last|--resume|--fresh] [--conversation <id>] [--model <name>] [--add-dir <path>] [--log-file <path>] [--print-timeout <duration>] [prompt]",
@@ -575,6 +577,73 @@ function renderDoctorReport(report) {
  if (report.models.items.length > 0) { lines.push("", "Models:"); for (const model of report.models.items) lines.push("- " + model); }
  return lines.join("\n").trimEnd() + "\n";
 }
+async function handleUpdate(argv) {
+  const { options } = parseCommandInput(argv, {
+    valueOptions: ["cwd"],
+    booleanOptions: ["json", "pull", "dismiss"]
+  });
+  const cwd = resolveCommandCwd(options);
+  const report = await checkGitCloneUpdate(cwd);
+
+  if (options.dismiss) {
+    if (report.updateAvailable) {
+      dismissUpdate(report.remoteVersion);
+    }
+    outputCommandResult(report, "Update dismissed until a newer version ships.\n", options.json);
+    return;
+  }
+
+  if (options.pull) {
+    if (!report.checked || !report.updateAvailable) {
+      outputCommandResult(report, "No update to pull.\n", options.json);
+      return;
+    }
+    if (report.dirty) {
+      outputCommandResult(
+        report,
+        "Working tree has uncommitted changes — commit or stash before pulling.\n",
+        options.json
+      );
+      process.exitCode = 1;
+      return;
+    }
+    const pull = runCommand("git", ["pull", "origin", "main"], { cwd: report.gitRoot });
+    const ok = !pull.error && pull.status === 0;
+    outputCommandResult(
+      { ...report, pull: { ok, stdout: pull.stdout, stderr: pull.stderr } },
+      ok ? `Pulled successfully:\n${pull.stdout}` : `git pull failed:\n${pull.stderr || pull.stdout}`,
+      options.json
+    );
+    if (!ok) {
+      process.exitCode = 1;
+    }
+    return;
+  }
+
+  outputCommandResult(report, renderUpdateReport(report), options.json);
+}
+
+function renderUpdateReport(report) {
+  if (!report.checked) {
+    return report.reason === "not-a-git-checkout"
+      ? "Not a git checkout — skip.\n"
+      : `Update check failed: ${report.reason}\n`;
+  }
+  if (!report.updateAvailable) {
+    return `Up to date (v${report.currentVersion}).\n`;
+  }
+  if (report.dismissed) {
+    return `Update v${report.remoteVersion} available but dismissed. Run $agy update --pull to pull it.\n`;
+  }
+  if (report.dirty) {
+    return `Update available (v${report.currentVersion} -> v${report.remoteVersion}), but the working tree has uncommitted changes. Pull manually later.\n`;
+  }
+  return (
+    `Update available (v${report.currentVersion} -> v${report.remoteVersion}, ${report.updated}): ${report.summary}\n` +
+    "Ask the user to confirm, then run $agy update --pull to pull, or $agy update --dismiss to silence this until the next version.\n"
+  );
+}
+
 function handleModels(argv) {
  const { options } = parseCommandInput(argv, { valueOptions: ["cwd"], booleanOptions: ["json"] });
  const cwd = resolveCommandCwd(options);
@@ -937,6 +1006,9 @@ handleModels(argv);
 break;
 case "doctor":
 handleDoctor(argv);
+break;
+case "update":
+await handleUpdate(argv);
 break;
 case "review":
 await handleReviewCommand(argv, { reviewName: "Review" });

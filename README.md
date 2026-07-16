@@ -98,7 +98,10 @@ node scripts/agy-companion.mjs adversarial-review [--background|--wait] [--scope
 node scripts/agy-companion.mjs status [job-id] [--wait] [--all] [--json]
 node scripts/agy-companion.mjs result [job-id] [--json]
 node scripts/agy-companion.mjs cancel [job-id] [--json]
+node scripts/agy-companion.mjs update [--pull|--dismiss] [--json]
 ```
+
+`update` checks `version.json` on this repo's `main` branch against the version this checkout was built from — for users who installed via `git clone` rather than npm. It never pulls on its own: it only reports what it finds, `--pull` re-checks the working tree is clean and then runs `git pull origin main`, and `--dismiss` silences the notice until a newer version ships. The same check runs (read-only) at session start via `plugins/agy/scripts/session-lifecycle-hook.mjs`.
 
 ## Changelog
 
