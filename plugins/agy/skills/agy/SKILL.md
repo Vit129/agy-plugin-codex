@@ -20,6 +20,7 @@ $agy adversarial-review [--background|--wait] [--scope auto|working-tree|branch]
 $agy status [job-id] [--wait] [--all]
 $agy result [job-id]
 $agy cancel [job-id]
+$agy update [--pull|--dismiss]
 ```
 
 Slash-style aliases such as `/agy setup` may work in some Codex builds, but `$agy` is the stable form.
@@ -92,5 +93,17 @@ The companion also supports local agy CLI features verified against `agy 1.0.10`
 - `doctor [--json]` verifies plugin manifest, host wiring, agy binary/auth, and model listing.
 - `task` accepts `--model <name>`, `--conversation <id>`, repeatable `--add-dir <path>`, `--log-file <path>`, and `--print-timeout <duration>`.
 - `review` and `adversarial-review` accept `--model <name>`, repeatable `--add-dir <path>`, `--log-file <path>`, and `--print-timeout <duration>`.
+
+## Git-Clone Update Check
+
+This plugin is normally installed by `git clone`, not npm, so at session start a hook compares the repo's `version.json` (on GitHub `main`) against the `CURRENT_VERSION` baked into `plugins/agy/scripts/lib/git-update-check.mjs`. If a newer version exists, the hook prints a one-line notice and never pulls on its own.
+
+If the user invokes `$agy update` (or you see that session-start notice) and the reported working tree is clean:
+
+1. Ask the user whether to pull now.
+2. If yes, run `$agy update --pull` — it re-checks the tree is clean, then runs `git pull origin main` and reports success or the conflict/error verbatim.
+3. If no (or there is no one to ask, e.g. a non-interactive run), run `$agy update --dismiss` so the notice stays quiet until a newer version ships.
+
+If the tree is dirty, `$agy update` reports that directly — do not offer to pull; tell the user to commit/stash and pull manually later.
 
 Treat these as routing flags. Strip them from natural-language prompt text before invoking the helper.
