@@ -3,13 +3,14 @@
 All notable changes to agy-plugin-codex are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and agy-plugin-codex follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-## [1.2.0] - 2026-07-19
+## [1.4.0] - 2026-07-22
 
 ### Added
 - Add Claude Code context layer (CLAUDE.md, .ai/, agent-memory/) ([`daccf47`](https://github.com/Vit129/agy-plugin-codex/commit/daccf47060404e6a0b6d7407cc0461d6a471d0dc))
 - Hands-off plugin auto-update via SessionStart hook ([`ac74565`](https://github.com/Vit129/agy-plugin-codex/commit/ac7456578f5d136c2f31e0a889863a26712aa0f5))
 - Add doctor/models commands, model+add-dir+conversation flags ([`67a1bb4`](https://github.com/Vit129/agy-plugin-codex/commit/67a1bb48d0a975ee18bdfef729dc10c25c3f387a))
 - Check for newer git-clone version at session start, confirm before pull ([#2](https://github.com/Vit129/agy-plugin-codex/pull/2)) ([`cba5b78`](https://github.com/Vit129/agy-plugin-codex/commit/cba5b78ef63738ca55f29ff864efad96a41bc2e5))
+- Add --model/--effort validation, --dry-run quota preview, agents/changelog commands to agy plugin ([`e513fe3`](https://github.com/Vit129/agy-plugin-codex/commit/e513fe365fb91ec11323f063cedc7c120f3a84d9))
 
 ### Documentation
 - Add Antigravity keywords and variations for search ([`862775b`](https://github.com/Vit129/agy-plugin-codex/commit/862775b65da745a6088c21db4582d3c63aa1d4c6))
