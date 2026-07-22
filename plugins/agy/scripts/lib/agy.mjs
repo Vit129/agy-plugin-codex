@@ -38,6 +38,20 @@ export function buildAgyArgs(prompt, options = {}) {
     args.push("--model", options.model);
   }
 
+  if (options.effort) {
+    args.push("--effort", options.effort);
+  }
+
+  if (options.newProject) {
+    args.push("--new-project");
+  } else if (options.project) {
+    args.push("--project", options.project);
+  }
+
+  if (options.dangerouslySkipPermissions) {
+    args.push("--dangerously-skip-permissions");
+  }
+
   for (const dir of options.addDirs ?? []) {
     args.push("--add-dir", dir);
   }
@@ -115,7 +129,7 @@ export function runAgyTaskSync(cwd, prompt, options = {}) {
   }
 
   return {
-    exitCode: result.status ?? 0,
+    exitCode: result.status ?? (result.error ? 1 : 0),
     stdout: result.stdout ?? "",
     stderr: result.stderr ?? "",
     timedOut: false
@@ -131,7 +145,39 @@ export function runAgyModels(cwd, options = {}) {
   });
 
   return {
-    exitCode: result.status ?? 0,
+    exitCode: result.status ?? (result.error ? 1 : 0),
+    stdout: result.stdout ?? "",
+    stderr: result.stderr ?? "",
+    error: result.error ?? null
+  };
+}
+
+export function runAgyAgents(cwd, options = {}) {
+  const result = spawnSync("agy", ["agents"], {
+    cwd: cwd || process.cwd(),
+    env: options.env ?? process.env,
+    encoding: "utf8",
+    timeout: options.timeout
+  });
+
+  return {
+    exitCode: result.status ?? (result.error ? 1 : 0),
+    stdout: result.stdout ?? "",
+    stderr: result.stderr ?? "",
+    error: result.error ?? null
+  };
+}
+
+export function runAgyChangelog(cwd, options = {}) {
+  const result = spawnSync("agy", ["changelog"], {
+    cwd: cwd || process.cwd(),
+    env: options.env ?? process.env,
+    encoding: "utf8",
+    timeout: options.timeout
+  });
+
+  return {
+    exitCode: result.status ?? (result.error ? 1 : 0),
     stdout: result.stdout ?? "",
     stderr: result.stderr ?? "",
     error: result.error ?? null

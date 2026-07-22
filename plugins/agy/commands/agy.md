@@ -1,6 +1,6 @@
 ---
 description: Delegate a one-shot prompt to the Antigravity (agy) CLI agent
-argument-hint: '[--sandbox] [--continue|--resume|--fresh] [--conversation <id>] [--model <name>] [--add-dir <path>] [--print-timeout <duration>] [--background] [prompt]'
+argument-hint: '[--sandbox] [--dry-run] [--continue|--resume|--fresh] [--conversation <id>] [--model <name>] [--effort <low|medium|high>] [--project <id>|--new-project] [--dangerously-skip-permissions] [--add-dir <path>] [--print-timeout <duration>] [--background] [prompt]'
 ---
 
 Run the companion from the installed plugin root:

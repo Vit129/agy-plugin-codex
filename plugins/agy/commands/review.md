@@ -1,6 +1,6 @@
 ---
 description: Run an agy code review against local git state
-argument-hint: '[--wait|--background] [--base <ref>] [--scope auto|working-tree|branch]'
+argument-hint: '[--wait|--background] [--dry-run] [--base <ref>] [--scope auto|working-tree|branch] [--model <name>] [--effort <low|medium|high>]'
 ---
 
 Run the companion from the installed plugin root:

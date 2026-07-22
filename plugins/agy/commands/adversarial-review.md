@@ -1,6 +1,6 @@
 ---
 description: Run an agy adversarial review that challenges implementation choices and assumptions
-argument-hint: '[--wait|--background] [--base <ref>] [--scope auto|working-tree|branch] [focus ...]'
+argument-hint: '[--wait|--background] [--dry-run] [--base <ref>] [--scope auto|working-tree|branch] [--model <name>] [--effort <low|medium|high>] [focus ...]'
 ---
 
 Run the companion from the installed plugin root:
