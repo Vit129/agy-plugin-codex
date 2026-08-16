@@ -2,7 +2,7 @@
 
 ## Agent Memory
 
-`agent-memory/` is gitignored here (2026-08-16+) — not tracked in this repo, centrally backed up instead to the private `github.com/Vit129/claude-memory-private` repo (`agent-memory/agy-plugin-codex/`). Files stay physically in place; only git tracking changed. The `@agent-memory/CONTEXT.md` / `@agent-memory/INDEX.md` auto-loads below will silently no-op if missing (fresh clone) — restore via `~/.claude/scripts/bootstrap-new-machine.sh`, or manually: `rsync -a ~/Git/Personal/claude-memory-private/agent-memory/agy-plugin-codex/ agent-memory/`.
+`agent-memory/` is gitignored here (2026-08-16+) — not tracked in this repo, centrally backed up instead to the private `github.com/Vit129/agent-memory-private` repo (`agent-memory/agy-plugin-codex/`). Files stay physically in place; only git tracking changed. The `@agent-memory/CONTEXT.md` / `@agent-memory/INDEX.md` auto-loads below will silently no-op if missing (fresh clone) — restore via `~/.claude/scripts/bootstrap-new-machine.sh`, or manually: `rsync -a ~/Git/Personal/agent-memory-private/agent-memory/agy-plugin-codex/ agent-memory/`.
 
 ## Global-First Rule
 
