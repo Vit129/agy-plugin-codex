@@ -1,2 +1,6 @@
 node_modules/
 graphify-out/
+
+# agent-memory is centrally backed up to a private repo (claude-memory-private),
+# not tracked per-project anymore -- see ~/.claude/CLAUDE.md Memory Lifecycle
+agent-memory/
