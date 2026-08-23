@@ -3,6 +3,16 @@
 All notable changes to agy-plugin-codex are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and agy-plugin-codex follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.5.0] - 2026-08-23
+
+### Added
+- Add npm start as standard release entry point ([`d262531`](https://github.com/Vit129/agy-plugin-codex/commit/d262531d8a4b08ad45a3c20d0a50512e4bcfd611))
+- Add --model/--effort passthrough to agy rescue command, fix model-id parsing ([`b9b5b5c`](https://github.com/Vit129/agy-plugin-codex/commit/b9b5b5cf01c172fbec8a66d96d7d81e6f84da55e))
+
+### Documentation
+- Note agent-memory is gitignored + centrally backed up (claude-memory-private) ([`6b5f40b`](https://github.com/Vit129/agy-plugin-codex/commit/6b5f40baa1ba21d46bbea441af21fb399b0db0b5))
+- Agent-memory-private rename (was claude-memory-private) ([`e4a2f62`](https://github.com/Vit129/agy-plugin-codex/commit/e4a2f62e6f51b612dea064540fcd6020acfae34b))
+
 ## [1.4.0] - 2026-07-22
 
 ### Added

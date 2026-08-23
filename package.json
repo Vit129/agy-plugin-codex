@@ -1,6 +1,6 @@
 {
   "name": "@vit129/agy-plugin-codex",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Codex plugin installer and updater for the Antigravity agy companion.",
   "type": "module",
   "bin": {
