@@ -224,12 +224,16 @@ function ensureValidModel(cwd, agyOptions) {
   if (result.exitCode !== 0) {
     return;
   }
-  const models = parseModelLines(result.stdout);
-  if (models.length === 0 || models.includes(agyOptions.model)) {
+  const rawLines = parseModelLines(result.stdout);
+  if (rawLines.length === 0) {
+    return;
+  }
+  const modelIds = rawLines.map((line) => line.split(/\s+/)[0]);
+  if (modelIds.includes(agyOptions.model) || rawLines.includes(agyOptions.model)) {
     return;
   }
   throw new Error(
-    `Unknown --model "${agyOptions.model}". Available models:\n${models.map((model) => `- ${model}`).join("\n")}`
+    `Unknown --model "${agyOptions.model}". Available models:\n${rawLines.map((model) => `- ${model}`).join("\n")}`
   );
 }
 

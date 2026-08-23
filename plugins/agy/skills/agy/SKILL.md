@@ -13,10 +13,10 @@ Supported portable forms:
 
 ```text
 $agy setup [--enable-review-gate|--disable-review-gate]
-$agy task [--background] [--sandbox] [--continue|--resume|--fresh] <prompt>
-$agy rescue [--background|--wait] [--resume|--fresh] [--sandbox] <prompt>
-$agy review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>]
-$agy adversarial-review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [focus]
+$agy task [--background] [--sandbox] [--continue|--resume|--fresh] [--model <name>] [--effort <low|medium|high>] <prompt>
+$agy rescue [--background|--wait] [--resume|--fresh] [--sandbox] [--model <name>] [--effort <low|medium|high>] <prompt>
+$agy review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [--model <name>] [--effort <low|medium|high>]
+$agy adversarial-review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [--model <name>] [--effort <low|medium|high>] [focus]
 $agy status [job-id] [--wait] [--all]
 $agy result [job-id]
 $agy cancel [job-id]
@@ -91,8 +91,8 @@ The companion also supports local agy CLI features verified against `agy 1.0.10`
 
 - `models [--json]` lists available agy models.
 - `doctor [--json]` verifies plugin manifest, host wiring, agy binary/auth, and model listing.
-- `task` accepts `--model <name>`, `--conversation <id>`, repeatable `--add-dir <path>`, `--log-file <path>`, and `--print-timeout <duration>`.
-- `review` and `adversarial-review` accept `--model <name>`, repeatable `--add-dir <path>`, `--log-file <path>`, and `--print-timeout <duration>`.
+- `task` accepts `--model <name>`, `--effort <low|medium|high>`, `--conversation <id>`, repeatable `--add-dir <path>`, `--log-file <path>`, and `--print-timeout <duration>`.
+- `review` and `adversarial-review` accept `--model <name>`, `--effort <low|medium|high>`, repeatable `--add-dir <path>`, `--log-file <path>`, and `--print-timeout <duration>`.
 
 ## Git-Clone Update Check
 
