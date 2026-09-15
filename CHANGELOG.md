@@ -3,6 +3,11 @@
 All notable changes to agy-plugin-codex are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and agy-plugin-codex follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.5.1] - 2026-09-15
+
+### Fixed
+- Add research/audit exception to scope-narrowly rule ([`d7eb436`](https://github.com/Vit129/agy-plugin-codex/commit/d7eb436936eb0f5ada4e33933240e597462d2580))
+
 ## [1.5.0] - 2026-08-23
 
 ### Added
