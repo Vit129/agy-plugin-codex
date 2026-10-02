@@ -21,3 +21,7 @@
 
 - Codex plugin discovery must cleanly load the `$agy` entrypoint from `.agents/plugins/marketplace.json`.
 - Task delegation must capture exit status and communicate errors back to Codex without crashing the agent session.
+
+## Structure deviations
+
+- §1 one dir = one role (MUST) — `plugins/agy/` is the Codex plugin layout (commands, hooks, prompts, scripts, skills) mandated by the plugin system, not the role layout — revisit only if the plugin spec changes.
