@@ -2,7 +2,7 @@
 
 ## Agent Memory
 
-`agent-memory/` is gitignored here (2026-08-16+) — not tracked in this repo, centrally backed up instead to the private `github.com/Vit129/agent-memory-private` repo (`agent-memory/agy-plugin-codex/`). Files stay physically in place; only git tracking changed. The `@agent-memory/CONTEXT.md` / `@agent-memory/INDEX.md` auto-loads below will silently no-op if missing (fresh clone) — restore via `~/.claude/scripts/bootstrap-new-machine.sh`, or manually: `rsync -a ~/Git/Personal/agent-memory-private/agent-memory/agy-plugin-codex/ agent-memory/`.
+Per-project memory lives centrally in `~/Git/Personal/agent-memory-private/agent-memory/agy-plugin-codex/` (never in this repo). Resolve path via `python3 ~/.claude/scripts/lib/memory_root.py .` or search via `python3 ~/.claude/scripts/recall.py "<query>"`.
 
 ## Global-First Rule
 
@@ -13,8 +13,7 @@ Global instructions are authoritative:
 ## Project Context (auto-loaded every session)
 
 - @.ai/memory-protocol.md
-- @agent-memory/CONTEXT.md
-- @agent-memory/INDEX.md
+- @CONTEXT.md
 
 ## Project Summary
 
@@ -45,7 +44,7 @@ For ANY work in this project, invoke skill based on domain — do not wait for k
 
 ## Session Start
 
-1. Check `agent-memory/CONTEXT.md` → derive active work domain → invoke matching skill above.
+1. Check `CONTEXT.md` → derive active work domain → invoke matching skill above.
 2. If task is done from previous session: update CONTEXT.md (status → idle) + append to MEMORY.md first.
 
 ## graphify
