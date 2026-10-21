@@ -4,7 +4,7 @@
 
 A Codex plugin that integrates **Google's Antigravity (agy) CLI** and **Antigravity IDE** developer tools into Codex CLI.
 
-This is the Codex-native counterpart to `agy-plugin-cc`. It follows the same Codex marketplace pattern used by reverse Claude/Codex plugins, optimizing workflows for **Google Antigravity** systems:
+This is the Codex-native counterpart to [`agy-plugin-cc`](https://github.com/Vit129/agy-plugin-cc). It follows the same Codex marketplace pattern used by reverse Claude/Codex plugins, optimizing workflows for **Google Antigravity** systems:
 
 - repo-local marketplace metadata at `.agents/plugins/marketplace.json`
 - nested installable plugin at `plugins/agy`
@@ -52,17 +52,135 @@ codex plugin add agy@agy-plugin-codex
 
 Update: Codex has no automatic plugin updates; run `codex plugin marketplace upgrade` to refresh the marketplace, then start a new Codex session.
 
+## Commands & Usage
+
 After installing the plugin in Codex, start a new Codex thread and use:
+
+### `$agy setup`
+
+Check whether `agy` is installed and optionally toggle the stop-time review gate.
 
 ```text
 $agy setup
-$agy task explain how authentication works in this repo
-$agy task --background Investigate the flaky portfolio test
-$agy task --continue Apply the top fix
-$agy task --fresh Start a new investigation of the DCA state bug
+$agy setup --enable-review-gate
+$agy setup --disable-review-gate
 ```
 
-`$agy task`, `$agy rescue`, `$agy review`, `$agy adversarial-review`, `$agy status`, `$agy result`, and `$agy cancel` are implemented by the companion script.
+---
+
+### `$agy task [prompt]`
+
+Run a one-shot `agy` task directly.
+
+```text
+$agy task "Explain how the authentication flow works in this repo"
+$agy task --continue "Keep going"
+$agy task --sandbox "What files changed in the last commit?"
+```
+
+---
+
+### `$agy rescue [task]`
+
+Delegate investigation, fixes, or follow-up work to `agy`. Checks for a resumable previous session before starting.
+
+```text
+$agy rescue "Fix the memory leak in the WebSocket connection handler"
+$agy rescue "Triage the slow query logs" --background
+$agy rescue "Keep going" --resume
+$agy rescue "Start over from scratch" --fresh
+$agy rescue "Read-only audit of the auth module" --sandbox
+```
+
+**Flags:**
+
+| Flag | Description |
+|------|-------------|
+| `--background` | Run in the background; check progress with `$agy status` |
+| `--resume` / `--continue` | Continue the most recent agy conversation |
+| `--fresh` | Force a new conversation, ignoring previous context |
+| `--sandbox` | Run agy with terminal restrictions (read-only mode) |
+| `--model <name>` | Select specific Gemini / Antigravity model |
+| `--effort <level>` | Reasoning effort (`low`, `medium`, `high`) |
+
+---
+
+### `$agy review`
+
+Run a code review — agy examines the current git changes and reports findings.
+
+```text
+$agy review
+$agy review --wait
+$agy review --background
+$agy review --scope branch
+$agy review --base main
+```
+
+**Scopes:** `auto` (default), `working-tree`, `branch`
+
+---
+
+### `$agy adversarial-review [focus]`
+
+Run an adversarial review — agy tries to find the strongest reasons the change should *not* ship.
+
+```text
+$agy adversarial-review
+$agy adversarial-review "focus on the auth boundary"
+$agy adversarial-review --base main --wait
+```
+
+---
+
+### `$agy status [job-id]`
+
+Show active and recent agy jobs for this repository.
+
+```text
+$agy status
+$agy status task-abc123
+$agy status task-abc123 --wait
+$agy status --all
+```
+
+---
+
+### `$agy result [job-id]`
+
+Show the stored output for a finished job.
+
+```text
+$agy result
+$agy result task-abc123
+```
+
+---
+
+### `$agy cancel [job-id]`
+
+Cancel an active background job.
+
+```text
+$agy cancel
+$agy cancel task-abc123
+```
+
+---
+
+## Stop-Time Review Gate
+
+When enabled, `agy` runs a review before each session ends and blocks if it finds issues.
+
+```text
+$agy setup --enable-review-gate   # turn on
+$agy setup --disable-review-gate  # turn off
+```
+
+When a session ends with the gate enabled:
+- `agy` reviews the previous response
+- If it responds `ALLOW:` — the session closes normally
+- If it responds `BLOCK:` — the session is blocked with the reason
 
 ## Contents
 
