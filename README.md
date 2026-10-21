@@ -1,8 +1,10 @@
 # agy-plugin-codex
 
+> Unofficial community project. Not affiliated with, sponsored or endorsed by Google. "Antigravity" and "Google" are trademarks of Google LLC.
+
 A Codex plugin that integrates **Google's Antigravity (agy) CLI** and **Antigravity IDE** developer tools into Codex CLI.
 
-This is the Codex-native counterpart (often referred to as **Google Agy Codex Plugin** or **Antigravity Codex Plugin**) to `agy-plugin-cc`. It follows the same Codex marketplace pattern used by reverse Claude/Codex plugins, optimizing workflows for **Google Antigravity** systems:
+This is the Codex-native counterpart to `agy-plugin-cc`. It follows the same Codex marketplace pattern used by reverse Claude/Codex plugins, optimizing workflows for **Google Antigravity** systems:
 
 - repo-local marketplace metadata at `.agents/plugins/marketplace.json`
 - nested installable plugin at `plugins/agy`
@@ -88,36 +90,11 @@ node scripts/agy-companion.mjs cancel [job-id] [--json]
 node scripts/agy-companion.mjs update [--pull|--dismiss] [--json]
 ```
 
-`update` checks `version.json` on this repo's `main` branch against the version this checkout was built from — for users who installed via `git clone` rather than npm. It never pulls on its own: it only reports what it finds, `--pull` re-checks the working tree is clean and then runs `git pull origin main`, and `--dismiss` silences the notice until a newer version ships. The same check runs (read-only) at session start via `plugins/agy/scripts/session-lifecycle-hook.mjs`.
+`update` checks `version.json` on this repo's `main` branch against the version this checkout was built from. It never pulls on its own: it only reports what it finds, `--pull` re-checks the working tree is clean and then runs `git pull origin main`, and `--dismiss` silences the notice until a newer version ships. The same check runs (read-only) at session start via `plugins/agy/scripts/session-lifecycle-hook.mjs`.
 
 ## Changelog
 
-### v1.2.0 (2026-05-30)
-
-- Added npm package metadata and `agy-plugin-codex` installer CLI.
-- Added `npx -y @vit129/agy-plugin-codex@latest install` for repeatable install/update.
-- Added opt-in auto-update with `install --auto-update` or `$agy setup --enable-auto-update`.
-- `$agy setup` now checks npm for newer plugin versions and notifies by default.
-
-### v1.1.0 (2026-05-28)
-
-- **`$agy rescue`** — delegate investigation/fix work; flags: `--background`, `--resume`, `--fresh`, `--sandbox`, `--wait`
-- **`$agy review`** — code review via agy; flags: `--background`, `--wait`, `--scope auto|working-tree|branch`, `--base <ref>`
-- **`$agy adversarial-review [focus]`** — adversarial review mode
-- **`$agy status [job-id]`** — list active/recent jobs; `--wait`, `--all`
-- **`$agy result [job-id]`** — retrieve stored output for finished job
-- **`$agy cancel [job-id]`** — cancel a running background job
-- **SessionStart / Stop hooks** — session lifecycle management + stop-time review gate
-- **Job tracking** — persistent job state (queued / running / completed / failed / cancelled)
-- **Modular library** — `agy.mjs`, `args.mjs`, `fs.mjs`, `git.mjs`, `job-control.mjs`, `process.mjs`, `render.mjs`, `state.mjs`, `tracked-jobs.mjs`, `workspace.mjs`
-- **Review prompts** — `review.md`, `adversarial-review.md`, `stop-review-gate.md`
-- Full feature parity with `agy-plugin-cc` v1.1.0
-
-### v1.0.0
-
-- Initial release: `$agy setup`, `$agy task` — basic task delegation and resume
-
----
+See [CHANGELOG.md](CHANGELOG.md).
 
 ## Runtime State
 
