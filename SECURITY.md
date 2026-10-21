@@ -2,8 +2,8 @@
 
 ## Supported Versions
 
-Only the latest published version on npm (`@vit129/agy-plugin-codex`)
-receives security fixes. There is no long-term support branch.
+Only the latest version on GitHub `main` (as installed via the
+`agy-plugin-codex` marketplace) receives security fixes. There is no long-term support branch.
 
 | Version | Supported |
 | ------- | --------- |
