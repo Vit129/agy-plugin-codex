@@ -41,27 +41,14 @@ The Antigravity CLI must be installed on your system and authenticated before us
 
 ## Installation & Usage
 
-Add the local marketplace from this checkout:
+Install from GitHub:
 
 ```bash
-codex plugin marketplace add ./
+codex plugin marketplace add Vit129/agy-plugin-codex
+codex plugin add agy@agy-plugin-codex
 ```
 
-Then install `Agy` from the `Agy Plugin Codex` marketplace in Codex.
-
-Or install/update through npm:
-
-```bash
-npx -y @vit129/agy-plugin-codex@latest install
-```
-
-Opt in to automatic npm updates:
-
-```bash
-npx -y @vit129/agy-plugin-codex@latest install --auto-update
-```
-
-With auto-update enabled, `$agy setup` checks npm at most once every 24 hours. If a newer version exists, it reinstalls the Codex plugin cache and asks you to start a new Codex session. Without auto-update, `$agy setup` only prints the update command.
+Update: Codex has no automatic plugin updates; run `codex plugin marketplace upgrade` to refresh the marketplace, then start a new Codex session.
 
 After installing the plugin in Codex, start a new Codex thread and use:
 
