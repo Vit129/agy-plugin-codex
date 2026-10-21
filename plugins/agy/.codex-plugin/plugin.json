@@ -8,7 +8,7 @@
   },
   "homepage": "https://github.com/Vit129/agy-plugin-codex",
   "repository": "https://github.com/Vit129/agy-plugin-codex",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "keywords": [
     "agy",
     "antigravity",
