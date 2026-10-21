@@ -140,6 +140,10 @@ The helper stores per-workspace job state, result payloads, and background logs 
 /tmp/agy-companion/
 ```
 
+## Contributors
+
+Developed and maintained by **Vit129** and **Claude** (Anthropic).
+
 ## License
 
 Apache License 2.0 — see [LICENSE](./LICENSE) and [NOTICE](./NOTICE). Parts of the design
