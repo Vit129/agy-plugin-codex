@@ -96,7 +96,7 @@ The companion also supports local agy CLI features verified against `agy 1.0.10`
 
 ## Git-Clone Update Check
 
-This plugin is normally installed by `git clone`, not npm, so at session start a hook compares the repo's `version.json` (on GitHub `main`) against the `CURRENT_VERSION` baked into `plugins/agy/scripts/lib/git-update-check.mjs`. If a newer version exists, the hook prints a one-line notice and never pulls on its own.
+At session start a hook compares the repo's `version.json` (on GitHub `main`) against the `CURRENT_VERSION` baked into `plugins/agy/scripts/lib/git-update-check.mjs`. If a newer version exists, the hook prints a one-line notice and never pulls on its own.
 
 If the user invokes `$agy update` (or you see that session-start notice) and the reported working tree is clean:
 
