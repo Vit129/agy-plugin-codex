@@ -39,7 +39,7 @@ The Antigravity CLI must be installed on your system and authenticated before us
    agy auth
    ```
 
-## Usage
+## Installation & Usage
 
 Add the local marketplace from this checkout:
 
