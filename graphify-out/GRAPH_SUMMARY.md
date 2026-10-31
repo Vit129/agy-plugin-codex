@@ -3,13 +3,13 @@ _Auto-generated from GRAPH_REPORT.md · do not edit manually_
 _Regen: `graphify update .`_
 
 ## Summary
-- 410 nodes · 792 edges · 47 communities (39 shown, 8 thin omitted)
+- 410 nodes · 791 edges · 48 communities (40 shown, 8 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 
 ## Graph Freshness
-- Built from commit: `58ec8ffa`
+- Built from commit: `19fd8bd5`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -37,20 +37,20 @@ node's neighbors span, not by raw edge count.
 3. `handleReviewCommand()` - bridges 2 areas (19 edges)
 4. `handleStatus()` - bridges 2 areas (11 edges)
 5. `listJobs()` - bridges 2 areas (11 edges)
-6. `executeReviewRun()` - bridges 2 areas (10 edges)
-7. `handleTaskWorker()` - bridges 2 areas (10 edges)
-8. `handleSetup()` - bridges 2 areas (9 edges)
-9. `getAgyAvailability()` - bridges 2 areas (9 edges)
+6. `handleTaskWorker()` - bridges 2 areas (10 edges)
+7. `getAgyAvailability()` - bridges 2 areas (9 edges)
+8. `resolveCancelableJob()` - bridges 2 areas (9 edges)
+9. `loadState()` - bridges 2 areas (9 edges)
 
 ## Surprising Connections (you probably didn't know these)
 - `resolveCommandWorkspace()` --calls--> `resolveWorkspaceRoot()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/workspace.mjs
-- `ensureAgyAvailable()` --calls--> `getAgyAvailability()`  [EXTRACTED]
-  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/agy.mjs
+- `buildSetupReport()` --calls--> `getConfig()`  [EXTRACTED]
+  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/state.mjs
+- `buildSetupReport()` --calls--> `resolveWorkspaceRoot()`  [EXTRACTED]
+  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/workspace.mjs
 - `handleSetup()` --calls--> `setConfig()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/state.mjs
-- `executeReviewRun()` --calls--> `runAgyTask()`  [EXTRACTED]
-  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/agy.mjs
 - `executeReviewRun()` --calls--> `ensureGitRepository()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/git.mjs
 

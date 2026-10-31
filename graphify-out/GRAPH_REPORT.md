@@ -5,12 +5,12 @@
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 410 nodes · 792 edges · 47 communities (39 shown, 8 thin omitted)
+- 410 nodes · 791 edges · 48 communities (40 shown, 8 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `58ec8ffa`
+- Built from commit: `19fd8bd5`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -36,44 +36,44 @@ node's neighbors span, not by raw edge count.
 3. `handleReviewCommand()` - bridges 2 areas (19 edges)
 4. `handleStatus()` - bridges 2 areas (11 edges)
 5. `listJobs()` - bridges 2 areas (11 edges)
-6. `executeReviewRun()` - bridges 2 areas (10 edges)
-7. `handleTaskWorker()` - bridges 2 areas (10 edges)
-8. `handleSetup()` - bridges 2 areas (9 edges)
-9. `getAgyAvailability()` - bridges 2 areas (9 edges)
-10. `resolveCancelableJob()` - bridges 2 areas (9 edges)
+6. `handleTaskWorker()` - bridges 2 areas (10 edges)
+7. `getAgyAvailability()` - bridges 2 areas (9 edges)
+8. `resolveCancelableJob()` - bridges 2 areas (9 edges)
+9. `loadState()` - bridges 2 areas (9 edges)
+10. `handleResult()` - bridges 2 areas (8 edges)
 
 ## Surprising Connections (you probably didn't know these)
 - `resolveCommandWorkspace()` --calls--> `resolveWorkspaceRoot()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/workspace.mjs
-- `ensureAgyAvailable()` --calls--> `getAgyAvailability()`  [EXTRACTED]
-  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/agy.mjs
+- `buildSetupReport()` --calls--> `getConfig()`  [EXTRACTED]
+  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/state.mjs
+- `buildSetupReport()` --calls--> `resolveWorkspaceRoot()`  [EXTRACTED]
+  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/workspace.mjs
 - `handleSetup()` --calls--> `setConfig()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/state.mjs
-- `executeReviewRun()` --calls--> `runAgyTask()`  [EXTRACTED]
-  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/agy.mjs
 - `executeReviewRun()` --calls--> `ensureGitRepository()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/git.mjs
 
 ## Import Cycles
 - None detected.
 
-## Communities (47 total, 8 thin omitted)
+## Communities (48 total, 8 thin omitted)
 
 ### Community 0 - "agy-companion.mjs"
-Cohesion: 0.08
-Nodes (71): buildAgyRunOptions(), buildDoctorReport(), buildDryRunReport(), buildHostDoctor(), buildReviewPrompt(), buildStopGatePrompt(), buildTaskJob(), buildTaskRunMetadata() (+63 more)
+Cohesion: 0.07
+Nodes (77): buildAgyRunOptions(), buildDoctorReport(), buildDryRunReport(), buildHostDoctor(), buildReviewPrompt(), buildSetupReport(), buildStopGatePrompt(), buildTaskJob() (+69 more)
 
 ### Community 1 - "state.mjs"
 Cohesion: 0.15
 Nodes (34): createTrackedProgress(), enqueueBackgroundTask(), handleCancel(), spawnDetachedTaskWorker(), readStoredJob(), defaultState(), ensureStateDir(), FALLBACK_STATE_ROOT_DIR (+26 more)
 
 ### Community 2 - "job-control.mjs"
-Cohesion: 0.12
-Nodes (37): buildSetupReport(), buildAgyArgs(), getAgyAuthStatus(), getAgyAvailability(), runAgyTask(), runAgyTaskSync(), buildSingleJobSnapshot(), buildStatusSnapshot() (+29 more)
+Cohesion: 0.15
+Nodes (31): buildSingleJobSnapshot(), buildStatusSnapshot(), enrichJob(), filterJobsForCurrentSession(), formatElapsedDuration(), getCurrentSessionId(), getJobTypeLabel(), inferLegacyJobPhase() (+23 more)
 
 ### Community 3 - "agy-plugin-codex"
-Cohesion: 0.06
-Nodes (31): [1.0.0] - 2026-05-27, [1.1.0] - 2026-05-28, [1.4.0] - 2026-07-22, [1.5.0] - 2026-08-23, [1.5.1] - 2026-09-15, Added, Added, Added (+23 more)
+Cohesion: 0.10
+Nodes (19): `$agy adversarial-review [focus]`, `$agy cancel [job-id]`, agy-plugin-codex, `$agy rescue [task]`, `$agy result [job-id]`, `$agy review`, `$agy setup`, `$agy status [job-id]` (+11 more)
 
 ### Community 4 - "session-lifecycle-hook.mjs"
 Cohesion: 0.11
@@ -151,6 +151,10 @@ Nodes (3): Design, Interaction model, Principles
 Cohesion: 0.50
 Nodes (3): Delivery, Product, Users and interface
 
+### Community 47 - "Changelog"
+Cohesion: 0.15
+Nodes (12): [1.0.0] - 2026-05-27, [1.1.0] - 2026-05-28, [1.4.0] - 2026-07-22, [1.5.0] - 2026-08-23, [1.5.1] - 2026-09-15, Added, Added, Added (+4 more)
+
 ## Knowledge Gaps
 - **145 isolated node(s):** `name`, `pull_request`, `push`, `contents`, `check` (+140 more)
   These have ≤1 connection - possible missing edges or undocumented components.
@@ -168,8 +172,8 @@ _Questions this graph is uniquely positioned to answer:_
 - **What connects `name`, `pull_request`, `push` to the rest of the system?**
   _145 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `agy-companion.mjs` be split into smaller, more focused modules?**
-  _Cohesion score 0.07531531531531531 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0707618187292984 - nodes in this community are weakly interconnected._
 - **Should `state.mjs` be split into smaller, more focused modules?**
   _Cohesion score 0.14761904761904762 - nodes in this community are weakly interconnected._
 - **Should `job-control.mjs` be split into smaller, more focused modules?**
-  _Cohesion score 0.11829268292682926 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.14616755793226383 - nodes in this community are weakly interconnected._
