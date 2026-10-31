@@ -3,13 +3,13 @@ _Auto-generated from GRAPH_REPORT.md · do not edit manually_
 _Regen: `graphify update .`_
 
 ## Summary
-- 410 nodes · 791 edges · 48 communities (40 shown, 8 thin omitted)
+- 424 nodes · 806 edges · 49 communities (41 shown, 8 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 
 ## Graph Freshness
-- Built from commit: `19fd8bd5`
+- Built from commit: `ebc5750c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -32,15 +32,15 @@ A high-degree node isn't always architecturally central - a widely-used
 utility/config file can rack up more edges than a real coupler while only
 ever touching one area. This ranks by how many DIFFERENT communities a
 node's neighbors span, not by raw edge count.
-1. `handleCancel()` - bridges 4 areas (13 edges)
-2. `resolveWorkspaceRoot()` - bridges 3 areas (17 edges)
-3. `handleReviewCommand()` - bridges 2 areas (19 edges)
+1. `handleCancel()` - bridges 3 areas (13 edges)
+2. `handleReviewCommand()` - bridges 2 areas (19 edges)
+3. `resolveWorkspaceRoot()` - bridges 2 areas (17 edges)
 4. `handleStatus()` - bridges 2 areas (11 edges)
 5. `listJobs()` - bridges 2 areas (11 edges)
 6. `handleTaskWorker()` - bridges 2 areas (10 edges)
-7. `getAgyAvailability()` - bridges 2 areas (9 edges)
-8. `resolveCancelableJob()` - bridges 2 areas (9 edges)
-9. `loadState()` - bridges 2 areas (9 edges)
+7. `resolveJobFile()` - bridges 2 areas (10 edges)
+8. `getAgyAvailability()` - bridges 2 areas (9 edges)
+9. `checkGitCloneUpdate()` - bridges 2 areas (9 edges)
 
 ## Surprising Connections (you probably didn't know these)
 - `resolveCommandWorkspace()` --calls--> `resolveWorkspaceRoot()`  [EXTRACTED]
