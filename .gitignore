@@ -1,4 +1,5 @@
 node_modules/
+.tmp/
 graphify-out/
 
 # agent-memory is centrally backed up to a private repo (claude-memory-private),
