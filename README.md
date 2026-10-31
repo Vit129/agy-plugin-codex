@@ -214,6 +214,10 @@ node scripts/agy-companion.mjs update [--pull|--dismiss] [--json]
 
 See [CHANGELOG.md](CHANGELOG.md).
 
+## Development and delivery
+
+This is a Codex plugin package, not a local web application. `npm start` / `make start` runs the isolated package preview gate: syntax checks, unit tests, and `npm pack --dry-run`. There is no local GUI dev server; review runtime behavior by installing into a separate test Codex profile. The release script updates every semver/build surface, commits the candidate, and runs `npm run release:check` on that exact commit before it tags or pushes. CI runs the same gate on pull requests and pushes to `main`.
+
 ## Runtime State
 
 The helper stores per-workspace job state, result payloads, and background logs under `CODEX_PLUGIN_DATA/state/` when Codex provides that directory. If `CODEX_PLUGIN_DATA` is not set, it falls back to:

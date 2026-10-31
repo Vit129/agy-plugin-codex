@@ -1,16 +1,16 @@
-# Graph Report - graphify-refresh  (2026-10-31)
+# Graph Report - delivery-workflow-completion  (2026-10-31)
 
 ## Corpus Check
-- 60 files · ~26,322 words
+- 66 files · ~27,218 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 388 nodes · 773 edges · 44 communities (36 shown, 8 thin omitted)
+- 424 nodes · 806 edges · 49 communities (41 shown, 8 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `140a0c8e`
+- Built from commit: `ebc5750c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -31,20 +31,18 @@ A high-degree node isn't always architecturally central - a widely-used
 utility/config file can rack up more edges than a real coupler while only
 ever touching one area. This ranks by how many DIFFERENT communities a
 node's neighbors span, not by raw edge count.
-1. `resolveWorkspaceRoot()` - bridges 4 areas (17 edges)
-2. `handleCancel()` - bridges 4 areas (13 edges)
-3. `handleReviewCommand()` - bridges 3 areas (19 edges)
-4. `parseCommandInput()` - bridges 3 areas (16 edges)
-5. `listJobs()` - bridges 3 areas (11 edges)
-6. `handleTaskWorker()` - bridges 3 areas (10 edges)
-7. `handleResult()` - bridges 3 areas (8 edges)
-8. `readStoredJob()` - bridges 3 areas (7 edges)
-9. `handleTask()` - bridges 2 areas (21 edges)
-10. `resolveCommandCwd()` - bridges 2 areas (15 edges)
+1. `handleCancel()` - bridges 3 areas (13 edges)
+2. `handleReviewCommand()` - bridges 2 areas (19 edges)
+3. `resolveWorkspaceRoot()` - bridges 2 areas (17 edges)
+4. `handleStatus()` - bridges 2 areas (11 edges)
+5. `listJobs()` - bridges 2 areas (11 edges)
+6. `handleTaskWorker()` - bridges 2 areas (10 edges)
+7. `resolveJobFile()` - bridges 2 areas (10 edges)
+8. `getAgyAvailability()` - bridges 2 areas (9 edges)
+9. `checkGitCloneUpdate()` - bridges 2 areas (9 edges)
+10. `getConfig()` - bridges 2 areas (8 edges)
 
 ## Surprising Connections (you probably didn't know these)
-- `parseCommandInput()` --calls--> `parseArgs()`  [EXTRACTED]
-  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/args.mjs
 - `resolveCommandWorkspace()` --calls--> `resolveWorkspaceRoot()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/workspace.mjs
 - `buildSetupReport()` --calls--> `getConfig()`  [EXTRACTED]
@@ -53,47 +51,49 @@ node's neighbors span, not by raw edge count.
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/workspace.mjs
 - `handleSetup()` --calls--> `setConfig()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/state.mjs
+- `executeReviewRun()` --calls--> `ensureGitRepository()`  [EXTRACTED]
+  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/git.mjs
 
 ## Import Cycles
 - None detected.
 
-## Communities (44 total, 8 thin omitted)
+## Communities (49 total, 8 thin omitted)
 
 ### Community 0 - "agy-companion.mjs"
-Cohesion: 0.08
-Nodes (55): buildAgyRunOptions(), buildDoctorReport(), buildDryRunReport(), buildHostDoctor(), buildQuotaLines(), buildReviewPrompt(), buildSetupReport(), buildStopGatePrompt() (+47 more)
+Cohesion: 0.07
+Nodes (82): buildAgyRunOptions(), buildDoctorReport(), buildDryRunReport(), buildHostDoctor(), buildQuotaLines(), buildReviewPrompt(), buildSetupReport(), buildStopGatePrompt() (+74 more)
 
 ### Community 1 - "state.mjs"
-Cohesion: 0.14
-Nodes (35): createTrackedProgress(), enqueueBackgroundTask(), handleCancel(), handleTaskWorker(), spawnDetachedTaskWorker(), readStoredJob(), defaultState(), ensureStateDir() (+27 more)
+Cohesion: 0.12
+Nodes (40): createTrackedProgress(), enqueueBackgroundTask(), spawnDetachedTaskWorker(), formatUpdateNotice(), defaultState(), ensureStateDir(), FALLBACK_STATE_ROOT_DIR, loadState() (+32 more)
 
 ### Community 2 - "job-control.mjs"
-Cohesion: 0.14
-Nodes (32): buildSingleJobSnapshot(), buildStatusSnapshot(), enrichJob(), filterJobsForCurrentSession(), findLatestResumableTaskJob(), formatElapsedDuration(), getCurrentSessionId(), getJobTypeLabel() (+24 more)
+Cohesion: 0.15
+Nodes (31): buildSingleJobSnapshot(), buildStatusSnapshot(), enrichJob(), filterJobsForCurrentSession(), formatElapsedDuration(), getCurrentSessionId(), getJobTypeLabel(), inferLegacyJobPhase() (+23 more)
 
 ### Community 3 - "agy-plugin-codex"
 Cohesion: 0.06
-Nodes (30): [1.0.0] - 2026-05-27, [1.1.0] - 2026-05-28, [1.4.0] - 2026-07-22, [1.5.0] - 2026-08-23, [1.5.1] - 2026-09-15, Added, Added, Added (+22 more)
+Nodes (31): [1.0.0] - 2026-05-27, [1.1.0] - 2026-05-28, [1.4.0] - 2026-07-22, [1.5.0] - 2026-08-23, [1.5.1] - 2026-09-15, Added, Added, Added (+23 more)
 
 ### Community 4 - "session-lifecycle-hook.mjs"
-Cohesion: 0.14
-Nodes (28): detectDefaultBranch(), ensureGitRepository(), getCurrentBranch(), git(), gitChecked(), isWorkingTreeDirty(), resolveReviewTarget(), checkGitCloneUpdate() (+20 more)
-
-### Community 5 - "parseCommandInput"
 Cohesion: 0.16
-Nodes (28): handleAgents(), handleChangelog(), handleDoctor(), handleModels(), handleResult(), handleSetup(), handleStatus(), handleTaskResumeCandidate() (+20 more)
+Nodes (22): getCodexBarAvailability(), detectDefaultBranch(), ensureGitRepository(), getCurrentBranch(), git(), gitChecked(), isWorkingTreeDirty(), resolveReviewTarget() (+14 more)
+
+### Community 5 - "render.mjs"
+Cohesion: 0.52
+Nodes (6): appendActiveJobsTable(), escapeMarkdownCell(), formatJobLine(), pushJobDetails(), renderJobStatusReport(), renderStatusReport()
 
 ### Community 6 - "What You Must Do When Invoked"
 Cohesion: 0.08
 Nodes (24): For /graphify add and --watch, For /graphify query, For the commit hook and native CLAUDE.md integration, For --update and --cluster-only, /graphify, Honesty Rules, Interpreter guard for subcommands, Part A - Structural extraction for code files (+16 more)
 
 ### Community 7 - "lib.test.mjs"
-Cohesion: 0.13
-Nodes (14): normalizeArgv(), parseArgs(), splitRawArgumentString(), config, generateJobId: carries the prefix and is unique, parseArgs: boolean --flag=false, unknown flags stay positional, missing value throws, parseArgs: -- passes everything through as positionals, parseArgs: value, boolean, alias, inline and repeatable options (+6 more)
+Cohesion: 0.15
+Nodes (11): config, generateJobId: carries the prefix and is unique, parseArgs: boolean --flag=false, unknown flags stay positional, missing value throws, parseArgs: -- passes everything through as positionals, parseArgs: value, boolean, alias, inline and repeatable options, splitRawArgumentString: quotes, escapes and whitespace, state: a corrupt state file falls back to defaults, state: empty workspace yields the default state (+3 more)
 
 ### Community 8 - "package.json"
-Cohesion: 0.15
-Nodes (12): description, engines, node, license, name, private, scripts, check (+4 more)
+Cohesion: 0.11
+Nodes (17): description, engines, node, files, license, name, private, scripts (+9 more)
 
 ### Community 9 - "agy-plugin-codex — Agent Instructions"
 Cohesion: 0.18
@@ -139,25 +139,45 @@ Nodes (3): For git commit hook, For native CLAUDE.md integration, graphify refer
 Cohesion: 0.50
 Nodes (3): For --cluster-only, For --update (incremental re-extraction), graphify reference: incremental update and cluster-only
 
+### Community 44 - "check.yml"
+Cohesion: 0.22
+Nodes (8): jobs, check, name, on, pull_request, push, permissions, contents
+
+### Community 45 - "Design"
+Cohesion: 0.50
+Nodes (3): Design, Interaction model, Principles
+
+### Community 46 - "Product"
+Cohesion: 0.50
+Nodes (3): Delivery, Product, Users and interface
+
+### Community 47 - "check-version.mjs"
+Cohesion: 0.29
+Nodes (4): changelog, root, surfaces, updater
+
+### Community 48 - "set-release-version.mjs"
+Cohesion: 0.47
+Nodes (4): scriptPath, setVersion(), updateReleaseVersion(), release metadata updates semver and build surfaces together
+
 ## Knowledge Gaps
-- **131 isolated node(s):** `changelog`, `git`, `no_viz`, `name`, `version` (+126 more)
+- **152 isolated node(s):** `name`, `pull_request`, `push`, `contents`, `check` (+147 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **8 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `parseArgs()` connect `lib.test.mjs` to `agy-companion.mjs`, `parseCommandInput`?**
-  _High betweenness centrality (0.012) - this node is a cross-community bridge._
-- **Why does `splitRawArgumentString()` connect `lib.test.mjs` to `agy-companion.mjs`?**
-  _High betweenness centrality (0.011) - this node is a cross-community bridge._
-- **Why does `resolveWorkspaceRoot()` connect `job-control.mjs` to `agy-companion.mjs`, `state.mjs`, `session-lifecycle-hook.mjs`, `parseCommandInput`?**
-  _High betweenness centrality (0.011) - this node is a cross-community bridge._
-- **What connects `changelog`, `git`, `no_viz` to the rest of the system?**
-  _131 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Why does `parseArgs()` connect `agy-companion.mjs` to `lib.test.mjs`?**
+  _High betweenness centrality (0.010) - this node is a cross-community bridge._
+- **Why does `splitRawArgumentString()` connect `agy-companion.mjs` to `lib.test.mjs`?**
+  _High betweenness centrality (0.009) - this node is a cross-community bridge._
+- **Why does `resolveWorkspaceRoot()` connect `job-control.mjs` to `agy-companion.mjs`, `state.mjs`?**
+  _High betweenness centrality (0.009) - this node is a cross-community bridge._
+- **What connects `name`, `pull_request`, `push` to the rest of the system?**
+  _152 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `agy-companion.mjs` be split into smaller, more focused modules?**
-  _Cohesion score 0.08192090395480225 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06682705159048383 - nodes in this community are weakly interconnected._
 - **Should `state.mjs` be split into smaller, more focused modules?**
-  _Cohesion score 0.14414414414414414 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.11627906976744186 - nodes in this community are weakly interconnected._
 - **Should `job-control.mjs` be split into smaller, more focused modules?**
-  _Cohesion score 0.13949579831932774 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.14962121212121213 - nodes in this community are weakly interconnected._

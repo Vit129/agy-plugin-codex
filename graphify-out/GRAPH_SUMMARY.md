@@ -1,15 +1,15 @@
-# Graph Summary — graphify-refresh
+# Graph Summary — delivery-workflow-completion
 _Auto-generated from GRAPH_REPORT.md · do not edit manually_
 _Regen: `graphify update .`_
 
 ## Summary
-- 388 nodes · 773 edges · 44 communities (36 shown, 8 thin omitted)
+- 424 nodes · 806 edges · 49 communities (41 shown, 8 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS · INFERRED: 1 edges (avg confidence: 0.5)
 - Token cost: 0 input · 0 output
 
 
 ## Graph Freshness
-- Built from commit: `140a0c8e`
+- Built from commit: `ebc5750c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -32,19 +32,17 @@ A high-degree node isn't always architecturally central - a widely-used
 utility/config file can rack up more edges than a real coupler while only
 ever touching one area. This ranks by how many DIFFERENT communities a
 node's neighbors span, not by raw edge count.
-1. `resolveWorkspaceRoot()` - bridges 4 areas (17 edges)
-2. `handleCancel()` - bridges 4 areas (13 edges)
-3. `handleReviewCommand()` - bridges 3 areas (19 edges)
-4. `parseCommandInput()` - bridges 3 areas (16 edges)
-5. `listJobs()` - bridges 3 areas (11 edges)
-6. `handleTaskWorker()` - bridges 3 areas (10 edges)
-7. `handleResult()` - bridges 3 areas (8 edges)
-8. `readStoredJob()` - bridges 3 areas (7 edges)
-9. `handleTask()` - bridges 2 areas (21 edges)
+1. `handleCancel()` - bridges 3 areas (13 edges)
+2. `handleReviewCommand()` - bridges 2 areas (19 edges)
+3. `resolveWorkspaceRoot()` - bridges 2 areas (17 edges)
+4. `handleStatus()` - bridges 2 areas (11 edges)
+5. `listJobs()` - bridges 2 areas (11 edges)
+6. `handleTaskWorker()` - bridges 2 areas (10 edges)
+7. `resolveJobFile()` - bridges 2 areas (10 edges)
+8. `getAgyAvailability()` - bridges 2 areas (9 edges)
+9. `checkGitCloneUpdate()` - bridges 2 areas (9 edges)
 
 ## Surprising Connections (you probably didn't know these)
-- `parseCommandInput()` --calls--> `parseArgs()`  [EXTRACTED]
-  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/args.mjs
 - `resolveCommandWorkspace()` --calls--> `resolveWorkspaceRoot()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/workspace.mjs
 - `buildSetupReport()` --calls--> `getConfig()`  [EXTRACTED]
@@ -53,6 +51,8 @@ node's neighbors span, not by raw edge count.
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/workspace.mjs
 - `handleSetup()` --calls--> `setConfig()`  [EXTRACTED]
   plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/state.mjs
+- `executeReviewRun()` --calls--> `ensureGitRepository()`  [EXTRACTED]
+  plugins/agy/scripts/agy-companion.mjs → plugins/agy/scripts/lib/git.mjs
 
 
 _Full map → GRAPH_REPORT.md · query: `graphify query "..."`_
