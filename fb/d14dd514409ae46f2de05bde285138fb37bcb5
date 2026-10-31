@@ -1,0 +1,41 @@
+package.json
+  s_53ad839a68fb1c::t_435e0a2f1e6e9e 21
+  s_53ad839a68fb1c::t_c6bb9afc5d1be6 18-20
+tests/release-version.test.mjs
+  s_53ad839a68fb1c::t_bfb73242196229 8-10
+  s_53ad839a68fb1c::t_435e0a2f1e6e9e 1-7,11-29
+scripts/set-release-version.mjs
+  s_53ad839a68fb1c::t_435e0a2f1e6e9e 23-25,27
+  s_53ad839a68fb1c::t_c6bb9afc5d1be6 1-4,6-8,10-12,41-42
+  s_53ad839a68fb1c::t_98886cce70afc9 5,9,13-22,26,28-40,43-46
+.gitignore
+  s_53ad839a68fb1c::t_bfb73242196229 2
+scripts/check-version.mjs
+  s_53ad839a68fb1c::t_c6bb9afc5d1be6 1-39
+Makefile
+  s_53ad839a68fb1c::t_c6bb9afc5d1be6 1,13-15
+README.md
+  s_53ad839a68fb1c::t_441b97d47d95b6 219
+plugins/agy/.codex-plugin/plugin.json
+  s_53ad839a68fb1c::t_c6bb9afc5d1be6 3
+.github/workflows/check.yml
+  s_53ad839a68fb1c::t_441b97d47d95b6 19
+scripts/release.sh
+  s_53ad839a68fb1c::t_44e95051e2ee60 14-18,39,43,45,47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.3",
+  "base_commit_sha": "fbd14dd514409ae46f2de05bde285138fb37bcb5",
+  "prompts": {},
+  "sessions": {
+    "s_53ad839a68fb1c": {
+      "agent_id": {
+        "tool": "codex",
+        "id": "01a18fb7-5316-7db2-acef-76f7f2031027",
+        "model": "gpt-6-luna"
+      },
+      "human_author": "Vit129 <vitosk129@gmail.com>"
+    }
+  }
+}
