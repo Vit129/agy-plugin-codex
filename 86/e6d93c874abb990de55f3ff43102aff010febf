@@ -1,0 +1,19 @@
+docs/README.md
+  s_187c88a4da3f25::t_8d5ad1dfd1ebee 1-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.3",
+  "base_commit_sha": "86e6d93c874abb990de55f3ff43102aff010febf",
+  "prompts": {},
+  "sessions": {
+    "s_187c88a4da3f25": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_187c88a4da3f25",
+        "model": "unknown"
+      },
+      "human_author": "Vit129 <vitosk129@gmail.com>"
+    }
+  }
+}
