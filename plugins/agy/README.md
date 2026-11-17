@@ -64,7 +64,7 @@ The helper script itself exposes:
 
 ```text
 node scripts/agy-companion.mjs setup [--enable-review-gate|--disable-review-gate] [--json]
-node scripts/agy-companion.mjs task [--background] [--sandbox] [--continue|--resume|--fresh] [prompt]
+node scripts/agy-companion.mjs task [--background] [--continue|--resume|--fresh] [prompt]
 node scripts/agy-companion.mjs task-resume-candidate [--json]
 node scripts/agy-companion.mjs review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>]
 node scripts/agy-companion.mjs adversarial-review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [focus]
@@ -80,3 +80,5 @@ The helper stores per-workspace job state, result payloads, and background logs 
 ```text
 /tmp/agy-companion/
 ```
+
+Delegated agy runs use `--dangerously-skip-permissions` without agy terminal sandboxing. Parent environment restrictions still apply. For read-only reviews, state that constraint in the prompt. The `--sandbox` option is rejected.

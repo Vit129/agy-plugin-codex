@@ -75,7 +75,7 @@ Run a one-shot `agy` task directly.
 ```text
 $agy task "Explain how the authentication flow works in this repo"
 $agy task --continue "Keep going"
-$agy task --sandbox "What files changed in the last commit?"
+$agy task "What files changed in the last commit?"
 ```
 
 ---
@@ -89,7 +89,7 @@ $agy rescue "Fix the memory leak in the WebSocket connection handler"
 $agy rescue "Triage the slow query logs" --background
 $agy rescue "Keep going" --resume
 $agy rescue "Start over from scratch" --fresh
-$agy rescue "Read-only audit of the auth module" --sandbox
+$agy rescue "Read-only audit of the auth module"
 ```
 
 **Flags:**
@@ -99,7 +99,6 @@ $agy rescue "Read-only audit of the auth module" --sandbox
 | `--background` | Run in the background; check progress with `$agy status` |
 | `--resume` / `--continue` | Continue the most recent agy conversation |
 | `--fresh` | Force a new conversation, ignoring previous context |
-| `--sandbox` | Run agy with terminal restrictions (read-only mode) |
 | `--model <name>` | Select specific Gemini / Antigravity model |
 | `--effort <level>` | Reasoning effort (`low`, `medium`, `high`) |
 
@@ -198,7 +197,7 @@ The helper script itself exposes:
 
 ```text
 node scripts/agy-companion.mjs setup [--enable-review-gate|--disable-review-gate] [--json]
-node scripts/agy-companion.mjs task [--background] [--sandbox] [--continue|--resume|--fresh] [prompt]
+node scripts/agy-companion.mjs task [--background] [--continue|--resume|--fresh] [prompt]
 node scripts/agy-companion.mjs task-resume-candidate [--json]
 node scripts/agy-companion.mjs review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>]
 node scripts/agy-companion.mjs adversarial-review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [focus]
@@ -237,3 +236,5 @@ and scripts are derived from [`codex-plugin-cc`](https://github.com/openai/codex
 Apache-2.0), credited in `NOTICE`. Earlier releases were published under MIT and remain
 available under those terms (`LICENSE-MIT`). Keep `LICENSE` and `NOTICE` when you
 redistribute, and mark the files you change.
+
+Delegated agy runs use `--dangerously-skip-permissions` without agy terminal sandboxing. Parent environment restrictions still apply. For read-only reviews, state that constraint in the prompt. The `--sandbox` option is rejected.
