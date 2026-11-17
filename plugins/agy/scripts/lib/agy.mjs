@@ -20,7 +20,8 @@ export function getAgyAuthStatus(cwd) {
 }
 
 export function buildAgyArgs(prompt, options = {}) {
-  const args = [];
+  if (options.sandbox) throw new Error("--sandbox is no longer supported for delegation; remove --sandbox and specify read-only behavior in the prompt if needed.");
+  const args = ["--dangerously-skip-permissions"];
 
   if (options.resumeLast) {
     args.push("--continue");
@@ -28,10 +29,6 @@ export function buildAgyArgs(prompt, options = {}) {
 
   if (options.conversation) {
     args.push("--conversation", options.conversation);
-  }
-
-  if (options.sandbox) {
-    args.push("--sandbox");
   }
 
   if (options.model) {
@@ -46,10 +43,6 @@ export function buildAgyArgs(prompt, options = {}) {
     args.push("--new-project");
   } else if (options.project) {
     args.push("--project", options.project);
-  }
-
-  if (options.dangerouslySkipPermissions) {
-    args.push("--dangerously-skip-permissions");
   }
 
   for (const dir of options.addDirs ?? []) {

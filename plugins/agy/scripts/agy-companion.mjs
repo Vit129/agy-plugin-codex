@@ -71,7 +71,7 @@ function printUsage() {
       "  node scripts/agy-companion.mjs update [--pull|--dismiss] [--json]",
       "  node scripts/agy-companion.mjs review [--wait|--background] [--dry-run] [--base <ref>] [--scope <auto|working-tree|branch>] [--model <name>] [--effort <low|medium|high>] [--project <id>|--new-project] [--dangerously-skip-permissions] [--add-dir <path>] [--log-file <path>] [--print-timeout <duration>]",
       "  node scripts/agy-companion.mjs adversarial-review [--wait|--background] [--dry-run] [--base <ref>] [--scope <auto|working-tree|branch>] [--model <name>] [--effort <low|medium|high>] [--project <id>|--new-project] [--dangerously-skip-permissions] [--add-dir <path>] [--log-file <path>] [--print-timeout <duration>] [focus text]",
-      "  node scripts/agy-companion.mjs task [--background] [--dry-run] [--sandbox] [--continue|--resume-last|--resume|--fresh] [--conversation <id>] [--model <name>] [--effort <low|medium|high>] [--project <id>|--new-project] [--dangerously-skip-permissions] [--add-dir <path>] [--log-file <path>] [--print-timeout <duration>] [prompt]",
+      "  node scripts/agy-companion.mjs task [--background] [--dry-run] [--continue|--resume-last|--resume|--fresh] [--conversation <id>] [--model <name>] [--effort <low|medium|high>] [--project <id>|--new-project] [--dangerously-skip-permissions] [--add-dir <path>] [--log-file <path>] [--print-timeout <duration>] [prompt]",
       "  node scripts/agy-companion.mjs task-worker --job-id <id>",
       "  node scripts/agy-companion.mjs task-resume-candidate [--json]",
       "  node scripts/agy-companion.mjs status [job-id] [--wait] [--all] [--json]",
@@ -105,7 +105,11 @@ function normalizeArgv(argv) {
 }
 
 function parseCommandInput(argv, config = {}) {
-  return parseArgs(normalizeArgv(argv), {
+  const normalized = normalizeArgv(argv);
+  if (normalized.slice(0, normalized.indexOf("--") < 0 ? undefined : normalized.indexOf("--")).some((arg) => arg === "--sandbox" || arg.startsWith("--sandbox="))) {
+    throw new Error("--sandbox is no longer supported for delegation; remove --sandbox and specify read-only behavior in the prompt if needed.");
+  }
+  return parseArgs(normalized, {
     ...config,
     aliasMap: {
       C: "cwd",
@@ -162,14 +166,13 @@ function buildAgyRunOptions(cwd, options = {}, config = {}) {
   );
 
   return {
-    sandbox: Boolean(options.sandbox || config.forceSandbox),
     resumeLast: Boolean(config.allowResume && (options["continue"] || options["resume-last"] || options.resume)),
     conversation: config.allowConversation ? options.conversation ?? null : null,
     model: options.model ?? null,
     effort: options.effort ?? null,
     project: options.project ?? null,
     newProject: Boolean(options["new-project"]),
-    dangerouslySkipPermissions: Boolean(options["dangerously-skip-permissions"]),
+    dangerouslySkipPermissions: true,
     addDirs,
     logFile: resolveOptionalPath(cwd, options["log-file"]),
     printTimeout: options["print-timeout"] ?? null
@@ -183,7 +186,7 @@ function describeAgyRunOptions(agyOptions = {}) {
   if (agyOptions.conversation) parts.push(`conversation: ${agyOptions.conversation}`);
   if (agyOptions.newProject) parts.push("new project");
   else if (agyOptions.project) parts.push(`project: ${agyOptions.project}`);
-  if (agyOptions.dangerouslySkipPermissions) parts.push("skip permissions");
+  if (agyOptions.dangerouslySkipPermissions) parts.push("--dangerously-skip-permissions (no agy sandbox)");
   if (agyOptions.addDirs?.length) parts.push(`add dirs: ${agyOptions.addDirs.length}`);
   if (agyOptions.printTimeout) parts.push(`timeout: ${agyOptions.printTimeout}`);
   if (agyOptions.logFile) parts.push(`log: ${agyOptions.logFile}`);
@@ -363,7 +366,6 @@ async function executeReviewRun(request) {
 
 const result = await runAgyTask(request.cwd, prompt, {
 ...(request.agyOptions ?? {}),
-sandbox: true,
 onProgress: request.onProgress
 });
 
@@ -414,8 +416,7 @@ async function executeTaskRun(request) {
 
   const agyOptions = {
  ...(request.agyOptions ?? {}),
- resumeLast: Boolean(request.resumeLast ?? request.agyOptions?.resumeLast),
- sandbox: Boolean(request.sandbox ?? request.agyOptions?.sandbox)
+ resumeLast: Boolean(request.resumeLast ?? request.agyOptions?.resumeLast)
  };
  const taskMetadata = buildTaskRunMetadata({
  prompt: request.prompt,
@@ -770,7 +771,7 @@ async function handleReviewCommand(argv, config) {
  const cwd = resolveCommandCwd(options);
  const workspaceRoot = resolveCommandWorkspace(options);
  const focusText = positionals.join(" ").trim();
- const agyOptions = buildAgyRunOptions(cwd, options, { forceSandbox: true });
+ const agyOptions = buildAgyRunOptions(cwd, options, {});
  ensureValidModel(cwd, agyOptions);
  ensureValidEffort(agyOptions);
  if (options["dry-run"]) {
@@ -830,7 +831,7 @@ async function handleTask(argv) {
  if (options.background) {
  ensureAgyAvailable(cwd);
  const job = buildTaskJob(workspaceRoot, taskMetadata);
- const request = { cwd, prompt, agyOptions, resumeLast: agyOptions.resumeLast, sandbox: agyOptions.sandbox, jobId: job.id };
+ const request = { cwd, prompt, agyOptions, resumeLast: agyOptions.resumeLast, jobId: job.id };
  const { payload } = enqueueBackgroundTask(cwd, job, request);
  outputCommandResult(payload, renderQueuedTaskLaunch(payload), options.json);
  return;
@@ -1090,7 +1091,6 @@ function runStopGateReview(cwd, input = {}) {
   };
 
   const result = runAgyTaskSync(cwd, prompt, {
-    sandbox: true,
     env: childEnv,
     timeout: STOP_REVIEW_TIMEOUT_MS
   });

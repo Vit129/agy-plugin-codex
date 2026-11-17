@@ -13,8 +13,8 @@ Supported portable forms:
 
 ```text
 $agy setup [--enable-review-gate|--disable-review-gate]
-$agy task [--background] [--sandbox] [--continue|--resume|--fresh] [--model <name>] [--effort <low|medium|high>] <prompt>
-$agy rescue [--background|--wait] [--resume|--fresh] [--sandbox] [--model <name>] [--effort <low|medium|high>] <prompt>
+$agy task [--background] [--continue|--resume|--fresh] [--model <name>] [--effort <low|medium|high>] <prompt>
+$agy rescue [--background|--wait] [--resume|--fresh] [--model <name>] [--effort <low|medium|high>] <prompt>
 $agy review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [--model <name>] [--effort <low|medium|high>]
 $agy adversarial-review [--background|--wait] [--scope auto|working-tree|branch] [--base <ref>] [--model <name>] [--effort <low|medium|high>] [focus]
 $agy status [job-id] [--wait] [--all]
