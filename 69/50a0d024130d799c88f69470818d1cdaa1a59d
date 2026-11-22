@@ -1,0 +1,21 @@
+plugins/agy/scripts/agy-companion.mjs
+  s_0cedff1b078a92::t_d25a1e9cdbb59a 92-98,382,447,451-452,659
+plugins/agy/scripts/lib/agy.mjs
+  s_0cedff1b078a92::t_02d4ad531d0c37 14-26,32-36,116-117,142,144,158,160,174,176,190,192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.7",
+  "base_commit_sha": "6950a0d024130d799c88f69470818d1cdaa1a59d",
+  "prompts": {},
+  "sessions": {
+    "s_0cedff1b078a92": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1e8db658-20b0-4bb4-ba33-e16ebaa0045c",
+        "model": "claude-haiku-5-5"
+      },
+      "human_author": "Vit129 <vitosk129@gmail.com>"
+    }
+  }
+}
