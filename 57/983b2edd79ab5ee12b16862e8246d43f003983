@@ -1,0 +1,27 @@
+CHANGELOG.md
+  s_8880a2ec41b971::t_d56347bc1fbae8 6-24
+package.json
+  s_8880a2ec41b971::t_558cfb57a16f3d 3
+plugins/agy/.codex-plugin/plugin.json
+  s_8880a2ec41b971::t_6b27ae4f3fc37c 3
+plugins/agy/scripts/lib/git-update-check.mjs
+  s_8880a2ec41b971::t_625945da33f073 10
+version.json
+  s_8880a2ec41b971::t_b1e02fc9a7bdc7 2-3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.7",
+  "base_commit_sha": "57983b2edd79ab5ee12b16862e8246d43f003983",
+  "prompts": {},
+  "sessions": {
+    "s_8880a2ec41b971": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "s_8880a2ec41b971",
+        "model": "unknown"
+      },
+      "human_author": "Vit129 <vitosk129@gmail.com>"
+    }
+  }
+}
