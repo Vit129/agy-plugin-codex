@@ -89,6 +89,13 @@ function outputResult(value, asJson) {
   }
 }
 
+// Shown under a task's output when agy exited nonzero, so the diagnostic is not lost.
+function renderStderrBlock(stderr, exitCode) {
+  const text = String(stderr ?? "").trim();
+  if (!text) return "";
+  return `\n--- agy stderr (exit ${exitCode}) ---\n${text}\n`;
+}
+
 function outputCommandResult(payload, rendered, asJson) {
   outputResult(asJson ? payload : rendered, asJson);
 }
@@ -372,7 +379,7 @@ onProgress: request.onProgress
   const rendered = renderReviewResult(result.stdout, {
     reviewLabel: reviewName,
     targetLabel: target.label
-  });
+  }) + (result.exitCode !== 0 ? renderStderrBlock(result.stderr, result.exitCode) : "");
   const payload = {
     review: reviewName,
     target,
@@ -437,11 +444,12 @@ async function executeTaskRun(request) {
   const rendered = renderTaskResult(
     { rawOutput, failureMessage },
     { title: taskMetadata.title, jobId: request.jobId ?? null }
-  );
+  ) + (result.exitCode !== 0 ? renderStderrBlock(failureMessage, result.exitCode) : "");
   const payload = {
     status: result.exitCode === 0 ? "completed" : "failed",
     exitCode: result.exitCode,
-    rawOutput
+    rawOutput,
+    stderr: failureMessage
   };
 
   return {
@@ -648,7 +656,7 @@ function buildDoctorReport(cwd) {
  const modelsResult = agy.available ? runAgyModels(cwd, { timeout: 10000 }) : null;
  const models = modelsResult?.exitCode === 0 ? parseModelLines(modelsResult.stdout) : [];
  const host = buildHostDoctor(manifest?.version ?? null);
- return { ready: Boolean(agy.available && auth.loggedIn && manifest), plugin: { root: ROOT_DIR, manifestPath, version: manifest?.version ?? null, name: manifest?.name ?? null }, host, agy, auth, models: { ok: modelsResult ? modelsResult.exitCode === 0 : false, count: models.length, items: models, error: modelsResult && modelsResult.exitCode !== 0 ? (modelsResult.stderr || modelsResult.stdout || "agy models failed").trim() : null } };
+ return { ready: Boolean(agy.available && auth.loggedIn !== false && manifest), plugin: { root: ROOT_DIR, manifestPath, version: manifest?.version ?? null, name: manifest?.name ?? null }, host, agy, auth, models: { ok: modelsResult ? modelsResult.exitCode === 0 : false, count: models.length, items: models, error: modelsResult && modelsResult.exitCode !== 0 ? (modelsResult.stderr || modelsResult.stdout || "agy models failed").trim() : null } };
 }
 function renderModelsReport(models) { if (models.length === 0) return "No agy models reported.\n"; return models.join("\n") + "\n"; }
 function renderDoctorReport(report) {
