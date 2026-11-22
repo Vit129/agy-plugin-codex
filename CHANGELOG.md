@@ -3,6 +3,25 @@
 All notable changes to agy-plugin-codex are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and agy-plugin-codex follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.5.2] - 2026-11-22
+
+### Documentation
+- Add ARCHITECTURE.md per universal architecture rule ([`0985ec9`](https://github.com/Vit129/agy-plugin-codex/commit/0985ec9c0eb4e7e91b6df51d8679f6f7e45b7f7a))
+- Adopt AGENTS.md as canonical instruction file ([`08e769d`](https://github.com/Vit129/agy-plugin-codex/commit/08e769dc7a65a5ec13c7b6f7f41e579c846040a1))
+- Update agent-memory location to central agent-memory-private ([`aef6ae5`](https://github.com/Vit129/agy-plugin-codex/commit/aef6ae52fb670526ca6e3c2cba35785519922eda))
+- Relicense to Apache-2.0 and credit codex-plugin-cc ([`c3667ad`](https://github.com/Vit129/agy-plugin-codex/commit/c3667adeb009e0e07b93ff163116e91dcad75b89))
+- Credit Claude as co-developer and contributor ([`ce48007`](https://github.com/Vit129/agy-plugin-codex/commit/ce48007cf145565db88f8ecd641031e01cbb52c6))
+- Update heading to Installation & Usage ([`2d4e1b8`](https://github.com/Vit129/agy-plugin-codex/commit/2d4e1b8554bde32d17907a9a25b8bd482142d54a))
+- Install from GitHub through the Codex marketplace ([`39c39ac`](https://github.com/Vit129/agy-plugin-codex/commit/39c39ac1cfeb27837338f7145b7ffe4c7314bfc1))
+- Unofficial notice, changelog in CHANGELOG.md only ([`c8e7880`](https://github.com/Vit129/agy-plugin-codex/commit/c8e78801c808fdbadfac029e2a4bbe82e9a5ea36))
+- Expand commands reference and cross-link to agy-plugin-cc ([`7b04508`](https://github.com/Vit129/agy-plugin-codex/commit/7b045084d7da4e9b7a6628745975f04a4199a7a7))
+- Update copyright notice with co-authors ([`140a0c8`](https://github.com/Vit129/agy-plugin-codex/commit/140a0c8e765828ad6c900b0fc07568df72ec9733))
+- Add docs/ index per project structure standard ([#15](https://github.com/Vit129/agy-plugin-codex/pull/15)) ([`22dcf19`](https://github.com/Vit129/agy-plugin-codex/commit/22dcf1991adcc68201a57a278d9962303cb7e0df))
+- Point agent memory path to unified-memory-vault ([#19](https://github.com/Vit129/agy-plugin-codex/pull/19)) ([`4609791`](https://github.com/Vit129/agy-plugin-codex/commit/4609791dd05f554ba475f0cc124bea084ecbb33a))
+
+### Fixed
+- Run delegated agy outside sandbox ([#16](https://github.com/Vit129/agy-plugin-codex/pull/16)) ([`efbc287`](https://github.com/Vit129/agy-plugin-codex/commit/efbc287378ac945e444e6fe3562b3ca7788ab8e9))
+
 ## [1.5.1] - 2026-09-15
 
 ### Fixed
