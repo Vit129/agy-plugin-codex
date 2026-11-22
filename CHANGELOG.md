@@ -3,6 +3,11 @@
 All notable changes to agy-plugin-codex are documented here. The format is based on
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and agy-plugin-codex follows
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [1.5.3] - 2026-11-22
+
+### Documentation
+- Record the accepted agy login limit ([`15cd677`](https://github.com/Vit129/agy-plugin-codex/commit/15cd6778c1ba3ecc055df1f8ddbbe13cd982f413))
+
 ## [1.5.2] - 2026-11-22
 
 ### Documentation
@@ -21,6 +26,7 @@ All notable changes to agy-plugin-codex are documented here. The format is based
 
 ### Fixed
 - Run delegated agy outside sandbox ([#16](https://github.com/Vit129/agy-plugin-codex/pull/16)) ([`efbc287`](https://github.com/Vit129/agy-plugin-codex/commit/efbc287378ac945e444e6fe3562b3ca7788ab8e9))
+- Agy failures are reported, signal exits count as failures ([`6950a0d`](https://github.com/Vit129/agy-plugin-codex/commit/6950a0d024130d799c88f69470818d1cdaa1a59d))
 
 ## [1.5.1] - 2026-09-15
 
