@@ -11,12 +11,29 @@ export function getAgyAvailability(cwd) {
   return result;
 }
 
+// A child killed by a signal has status null. Count it as a failure, not success.
+export function exitCodeOf(result) {
+  if (result.error) return 1;
+  if (typeof result.status === "number") return result.status;
+  return result.signal ? 1 : 0;
+}
+
+export function withSignalNote(stderr, signal) {
+  if (!signal) return stderr;
+  const sep = stderr && !stderr.endsWith("\n") ? "\n" : "";
+  return `${stderr}${sep}agy was terminated by signal ${signal}.\n`;
+}
+
 export function getAgyAuthStatus(cwd) {
   const avail = getAgyAvailability(cwd);
   if (!avail.available) {
     return { loggedIn: false, detail: "agy not installed" };
   }
-  return { loggedIn: true, detail: "agy is available (auth managed by agy itself)" };
+  // agy 1.5.x has no auth status command, so login is not checked. null means "not verified".
+  return {
+    loggedIn: null,
+    detail: "agy is installed; login is not checked (agy has no auth status command). If a task fails with an auth error, run `agy` once interactively to log in."
+  };
 }
 
 export function buildAgyArgs(prompt, options = {}) {
@@ -96,8 +113,8 @@ export async function runAgyTask(cwd, prompt, options = {}) {
       resolve({ exitCode: 1, stdout, stderr: error.message });
     });
 
-    child.on("close", (code) => {
-      resolve({ exitCode: code ?? 0, stdout, stderr });
+    child.on("close", (code, signal) => {
+      resolve({ exitCode: exitCodeOf({ status: code, signal }), stdout, stderr: withSignalNote(stderr, signal) });
     });
   });
 }
@@ -122,9 +139,9 @@ export function runAgyTaskSync(cwd, prompt, options = {}) {
   }
 
   return {
-    exitCode: result.status ?? (result.error ? 1 : 0),
+    exitCode: exitCodeOf(result),
     stdout: result.stdout ?? "",
-    stderr: result.stderr ?? "",
+    stderr: withSignalNote(result.stderr ?? "", result.signal),
     timedOut: false
   };
 }
@@ -138,9 +155,9 @@ export function runAgyModels(cwd, options = {}) {
   });
 
   return {
-    exitCode: result.status ?? (result.error ? 1 : 0),
+    exitCode: exitCodeOf(result),
     stdout: result.stdout ?? "",
-    stderr: result.stderr ?? "",
+    stderr: withSignalNote(result.stderr ?? "", result.signal),
     error: result.error ?? null
   };
 }
@@ -154,9 +171,9 @@ export function runAgyAgents(cwd, options = {}) {
   });
 
   return {
-    exitCode: result.status ?? (result.error ? 1 : 0),
+    exitCode: exitCodeOf(result),
     stdout: result.stdout ?? "",
-    stderr: result.stderr ?? "",
+    stderr: withSignalNote(result.stderr ?? "", result.signal),
     error: result.error ?? null
   };
 }
@@ -170,9 +187,9 @@ export function runAgyChangelog(cwd, options = {}) {
   });
 
   return {
-    exitCode: result.status ?? (result.error ? 1 : 0),
+    exitCode: exitCodeOf(result),
     stdout: result.stdout ?? "",
-    stderr: result.stderr ?? "",
+    stderr: withSignalNote(result.stderr ?? "", result.signal),
     error: result.error ?? null
   };
 }
