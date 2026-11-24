@@ -1,5 +1,17 @@
 # agy-plugin-codex
 
+> [!WARNING]
+> **Deprecated.** This repository is no longer developed. The Codex plugin now ships from [`agy-plugin-cc`](https://github.com/Vit129/agy-plugin-cc), which serves both Claude Code and Codex from one plugin tree and includes everything here plus newer features (`handoff`, `--tier`, usage tracking, image/research/scrape/design-review).
+>
+> To switch in Codex: remove the `agy@agy-plugin-codex` plugin, then
+>
+> ```text
+> codex plugin marketplace add Vit129/agy-plugin-cc
+> codex plugin add agy@agy-plugin-cc
+> ```
+>
+> and start a new Codex session. `$agy ...` commands stay the same. The last release here is v1.5.3.
+
 > Unofficial community project. Not affiliated with, sponsored or endorsed by Google. "Antigravity" and "Google" are trademarks of Google LLC.
 
 A Codex plugin that integrates **Google's Antigravity (agy) CLI** and **Antigravity IDE** developer tools into Codex CLI.
